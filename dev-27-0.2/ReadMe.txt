@@ -10,5 +10,22 @@
 
 # Any other instruction that users need to know:
 
+# Office Hours Stipulations:
+### What do we need to include?
+> Main Office-Hours-Page
+* Semester
+* Year
+* Days
+> Semester's Time-Slots-Page
+* From Hour
+* To Hour
+> Courses-Page
+* Course Code
+* Course Name
+* Section Number
+
+
+
+
 
 
