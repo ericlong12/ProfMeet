@@ -1,3 +1,13 @@
+/*
+*
+*   This is main page that was auto created by intellJ (-Frances)
+*
+*
+*
+*
+* */
+
+
 package s25.cs151.application;
 
 import javafx.fxml.FXML;
