@@ -12,6 +12,9 @@ public class Main extends Application {
         launch(args);
     }
 
+
+    // PRIMARY STAGE FOR HOMEPAGE
+
     @Override
     public void start(Stage secondaryStage) {
 
