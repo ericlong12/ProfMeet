@@ -6,7 +6,7 @@
 *   GUI & Logic are both here (-Frances)
 *   Still need to:
 *       [] add exceptions for all instances to make them "required"
-*
+*       [] add submit button functionality with exception
 */
 
 package s25.cs151.application;
@@ -90,7 +90,7 @@ public class OfficeHoursPage {
 
         // submit button -> then pop up comes "Confirmed."
         submit = new Button("Submit");
-
+        submit.setStyle("-fx-background-color: black; -fx-text-fill: white;");
 
 
         // Layout in vbox ~ what we want to show on scene
@@ -99,7 +99,9 @@ public class OfficeHoursPage {
                 yearLabel, yearField,
                 daysLabel, daysBox,
                 timeSlots, fromHourTimeBox, toHourTimeBox,
-                courses, courseCode, courseName, courseSection);
+                courses, courseCode, courseName, courseSection,
+                submit);
+        layout.setStyle("-fx-background-color: rgba(66, 223, 244, 0.40);");
         layout.setPadding(new Insets(20));
 
         Scene scene = new Scene(layout, 400, 500);
