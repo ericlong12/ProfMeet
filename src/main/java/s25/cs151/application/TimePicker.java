@@ -43,5 +43,17 @@ public class TimePicker extends HBox {
         return String.format("%02d:%02d %s", hourBox.getValue(), minuteBox.getValue(), amPmBox.getValue());
     }
 
+    public Integer getHour() {
+        return hourBox.getValue();
+    }
+
+    public Integer getMinute() {
+        return minuteBox.getValue();
+    }
+
+    public String getAmPm() {
+        return amPmBox.getValue();
+    }
+
 
 }

@@ -1,24 +1,27 @@
-/* s25.cs151.application.OfficeHoursPage
+/* OfficeHoursPage.java
 *
 *    Written by Frances Belleza
 *    Edited by Hari Sowmith Reddy
 *
-*   GUI & Logic are both here (-Frances)
-*   Still need to:
-*       [] add exceptions for all instances to make them "required"
-*       [] add submit button functionality with exception
 */
 
 package s25.cs151.application;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class OfficeHoursPage {
     private Stage stage;
@@ -34,8 +37,13 @@ public class OfficeHoursPage {
 
     public void show() {
 
+        Font istokFont = Font.font("Istok Web", 16);
+
+        //title
         title = new Label("Semester's Office Hours");
-        title.setFont(new Font("Istok Web",30));
+        title.setFont(Font.font("Istok Web", 30));
+        title.setStyle("-fx-font-weight: bold;");
+
 
         // semester
             // dropdown, single select, required, default = Spring from list S, Sum, W
@@ -88,9 +96,52 @@ public class OfficeHoursPage {
         courseSection.setPromptText("Course Section");
 
 
-        // submit button -> then pop up comes "Confirmed."
+        // submit button
+        // Handles restriction too
         submit = new Button("Submit");
         submit.setStyle("-fx-background-color: black; -fx-text-fill: white;");
+
+        // set on action needed an evenHandler in it
+        // needed imports ActionEvent, EventHandler
+        // fromHour & toHour not in TimePicker class can't use getValue
+        // changed to getHour() [-FB]
+        submit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                List<String> errors = new ArrayList<>();
+
+                if (yearField.getText().isEmpty() || yearField.getText().length() != 4) {
+                    errors.add("Invalid year! Please enter a valid 4-digit year!");
+                }
+
+                if (!mon.isSelected() && !tues.isSelected() && !wed.isSelected() && !thurs.isSelected() && !fri.isSelected()) {
+                    errors.add("Please enter at least one day!");
+                }
+
+                if (fromHour.getHour() == null || fromHour.getMinute() == null || fromHour.getAmPm() == null ||
+                        toHour.getHour() == null || toHour.getMinute() == null || toHour.getAmPm() == null) {
+                    errors.add("Please select a valid time slot!");
+                }
+
+                if (courseCode.getText().isEmpty()) {
+                    errors.add("Please enter a valid Course Code!");
+                }
+
+                if (courseName.getText().isEmpty()) {
+                    errors.add("Course Name is required!");
+                }
+
+                if (courseSection.getText().isEmpty()) {
+                    errors.add("Course Section is required!");
+                }
+
+                if (!errors.isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, "Error", String.join("\n", errors));
+                } else {
+                    showAlert(Alert.AlertType.INFORMATION, "Success", "Office Hours Submitted!");
+                }
+            }
+        });
 
 
         // Layout in vbox ~ what we want to show on scene
@@ -110,4 +161,13 @@ public class OfficeHoursPage {
         stage.show();
 
     }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }
