@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>s25.cs151</groupId>
-    <artifactId>HelloWorld</artifactId>
+    <artifactId>ProfMeet</artifactId> <!-- 🔹 Ensure it's 'ProfMeet' consistently -->
     <version>1.0-SNAPSHOT</version>
-    <name>HelloWorld</name>
+    <name>ProfMeet</name> <!-- 🔹 Changed from 'HelloWorld' to match your project -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,7 +57,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>23</source>
+                    <source>23</source> <!-- 🔹 Ensure Java 23 -->
                     <target>23</target>
                 </configuration>
             </plugin>
@@ -67,10 +67,9 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>s25.cs151.helloworld/s25.cs151.application.Main</mainClass>
+                            <mainClass>s25.cs151.application.Main</mainClass> <!-- 🔹 Correct main class path -->
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
