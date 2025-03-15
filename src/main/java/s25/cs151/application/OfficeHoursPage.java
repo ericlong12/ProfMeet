@@ -14,6 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -63,8 +64,6 @@ public class OfficeHoursPage {
         semesterBpx.setMaxSize(500, 10);
         semesterBpx.setAlignment(Pos.CENTER_LEFT);
 
-
-
         // year box
             // text field, required, accepted value = 4-digit int
         yearLabel = new Label("Year:");
@@ -77,8 +76,6 @@ public class OfficeHoursPage {
         yearBox.setMinSize(500, 80); // Fixed size, so that it doesn't follow the page expanding
         yearBox.setMaxSize(500, 80);
         yearBox.setAlignment(Pos.CENTER_LEFT);
-
-
 
         // days
             // 5-check boxes, required, hard code Mon-Fri
@@ -97,7 +94,6 @@ public class OfficeHoursPage {
         daysBox.setMinSize(500, 100); // Fixed size, so that it doesn't follow the page expanding
         daysBox.setMaxSize(500, 100);
         daysBox.setAlignment(Pos.CENTER_LEFT);
-
 
         // need to add time slot
             // from hour -> time picker, required
@@ -120,8 +116,6 @@ public class OfficeHoursPage {
         timeSlotBox.setMinSize(500, 180); // Fixed size, so that it doesn't follow the page expanding
         timeSlotBox.setMaxSize(500, 180);
         timeSlotBox.setAlignment(Pos.CENTER_LEFT); // Centers the entire time slot section
-
-
 
         // need to add courses
             // course code -> text field, required, strings only
@@ -172,7 +166,7 @@ public class OfficeHoursPage {
         layout.setPrefWidth(500);
         layout.setPadding(new Insets(30));
 
-        Scene scene = new Scene(layout, 900, 700);
+        Scene scene = new Scene(layout, 900, 700, Color.LIGHTBLUE);
         stage.setScene(scene); //sets UI elems to the stage
         stage.setTitle("Office Hours Page");
         stage.show(); //used to display window
