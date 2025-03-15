@@ -67,7 +67,7 @@ public class OfficeHoursPage {
 
         // year box
             // text field, required, accepted value = 4-digit int
-        yearLabel = new Label("Year");
+        yearLabel = new Label("Year:");
         yearLabel.setFont(Font.font("Istok Web", 16));
         yearLabel.setStyle("-fx-font-weight: bold;");
         yearField = new TextField();
@@ -127,7 +127,7 @@ public class OfficeHoursPage {
             // course code -> text field, required, strings only
             // course name -> text field, required, strings only
             // section number -> text field, required, string only
-        courses = new Label("Courses");
+        courses = new Label("Courses:");
         courses.setFont(Font.font("Istok Web", 16));
         courses.setStyle("-fx-font-weight: bold;");
         courseCode = new TextField();
