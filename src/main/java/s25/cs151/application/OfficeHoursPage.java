@@ -166,7 +166,7 @@ public class OfficeHoursPage {
         layout.setPrefWidth(500);
         layout.setPadding(new Insets(30));
 
-        Scene scene = new Scene(layout, 900, 700, Color.LIGHTBLUE);
+        Scene scene = new Scene(layout, 900, 900, Color.LIGHTBLUE);
         stage.setScene(scene); //sets UI elems to the stage
         stage.setTitle("Office Hours Page");
         stage.show(); //used to display window
