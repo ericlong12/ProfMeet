@@ -16,6 +16,11 @@ public class Homepage extends Application {
 
     private String currentSemester = "Spring"; // Instance variable for current semester
     private int currentYear = 2025; // Instance variable for current year
+    private Stage stage;
+
+    public Homepage(Stage primaryStage) {
+        this.stage = primaryStage;
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -36,9 +41,9 @@ public class Homepage extends Application {
         // setting button function will talk about it later
         // settingButton.setOnAction(e -> handleDashBoard);
 
-        addOfficeHoursButton.setOnAction(e -> handleAddOfficeHours());
-        addTimeSlotsButton.setOnAction(e -> handleAddTimeSlotsButton());
-        addCourseButton.setOnAction(e -> handleAddCourse());
+        addOfficeHoursButton.setOnAction(e -> switchToOfficeHoursPage());
+        addTimeSlotsButton.setOnAction(e -> switchToTimeSlotsPage());
+        addCourseButton.setOnAction(e -> switchToCoursesPage());
         addAppointmentButton.setOnAction(e -> handleAddAppointment());
 
         Text firsTtitle = new Text("Welcome to");
@@ -97,23 +102,29 @@ public class Homepage extends Application {
         primaryStage.setMinHeight(600); // picks the height
         
         // 🔹 **Ensure the window opens**
-        primaryStage.show(); 
+        primaryStage.show();
     }
 
     // Handlers for the buttons
-    private void handleAddOfficeHours() {
-        // Open Office Hours Page in a new window
-        Stage officeHoursStage = new Stage();
-        OfficeHoursPage officeHoursPage = new OfficeHoursPage(officeHoursStage);
-        officeHoursPage.show();
+    private void switchToOfficeHoursPage() {
+        // Open Office Hours Page in a same window
+        OfficeHoursPage officeHoursPage = new OfficeHoursPage();
+        Scene officeHoursScene = officeHoursPage.getScene(stage);
+        stage.setScene(officeHoursScene);
     }
 
-    private void handleAddTimeSlotsButton() {
-        System.out.println("Add Time Slots clicked");
+    private void switchToTimeSlotsPage() {
+        //Open TimeSlots Page in the same window
+        TimeSlotsPage timeSlotsPage = new TimeSlotsPage(stage);
+        Scene timeSlotsScene = timeSlotsPage.getScene(stage);
+        stage.setScene(timeSlotsScene);
     }
 
-    private void handleAddCourse() {
-        System.out.println("Add Course clicked");
+    private void switchToCoursesPage() {
+        //Open TimeSlots Page in the same window
+        CoursesPage coursesPage = new CoursesPage();
+        Scene coursesScene = coursesPage.getScene(stage);
+        stage.setScene(coursesScene);
     }
 
     private void handleAddAppointment() {
