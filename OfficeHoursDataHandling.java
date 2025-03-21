@@ -58,7 +58,7 @@ import java.sql.*;
             }
         }
 
-        // ✅ Add Course to the Database
+        // Add Course to the Database
         public void addCourse(String code, String name, String section) {
             String sql = "INSERT INTO courses (code, name, section) VALUES (?, ?, ?)";
 
@@ -74,7 +74,7 @@ import java.sql.*;
             }
         }
 
-        // ✅ Add Office Hours to the Database
+        //  Add Office Hours to the Database
         public void addOfficeHours(String semester, int year, String days) {
             String sql = "INSERT INTO office_hours (semester, year, days) VALUES (?, ?, ?)";
 
@@ -90,7 +90,7 @@ import java.sql.*;
             }
         }
 
-        // ✅ Add Time Slots to the Database
+        // Add Time Slots to the Database
         public void addTimeSlot(String fromTime, String toTime) {
             String sql = "INSERT INTO time_slots (from_time, to_time) VALUES (?, ?)";
 
