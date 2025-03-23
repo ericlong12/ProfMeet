@@ -13,13 +13,12 @@ public class Main extends Application {
     }
 
     // PRIMARY STAGE FOR HOMEPAGE
-
     @Override
-    public void start(Stage secondaryStage) {
+    public void start(Stage primaryStage) {
 
         // Open Homepage first instead of OfficeHoursPage
-        Homepage homepage = new Homepage();
-        homepage.start(secondaryStage);
+        Homepage homepage = new Homepage(primaryStage);
+        homepage.start(primaryStage);
 
     }
 
