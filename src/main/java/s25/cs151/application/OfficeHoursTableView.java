@@ -56,7 +56,7 @@ public class OfficeHoursTableView extends Application {
                 officeHoursList.add(new OfficeHours(semester, year, days, "", "", ""));
             }
 
-            // Sort after loading
+            // Sorting the data
             List<String> semesterOrder = List.of("Spring", "Summer", "Fall", "Winter");
 
             FXCollections.sort(officeHoursList, new Comparator<OfficeHours>() {
