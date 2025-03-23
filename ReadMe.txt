@@ -4,10 +4,10 @@
 
 #Acknowledgements:
 
-  Hari Sowmith: Office Hours Page, Create data handling
+  Hari Sowmith: Supported in office Hours Page, Create data handling
   Thao Nguyen: Develop Homepage, Edit/make sure data exception handling is correct, edit ReadMe
-  Eric Long: Create a system where data is editable by the user, supported in data handling, Setup project files and Homepage
-  Frances Belleza: Office Hours Page, Fix office hours page, create timeslots page & course page
+  Eric Long: Create a system where data is viewable by the user, supported in data handling, Setup project files and Homepage
+  Frances Belleza: Created office Hours Page, Fix office hours page, create timeslots page & course page
 
 #Description:
 
