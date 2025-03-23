@@ -5,6 +5,7 @@ s25\cs151\application\TimeSlotsPage.class
 s25\cs151\application\OfficeHours.class
 s25\cs151\application\OfficeHoursPage.class
 s25\cs151\application\Main.class
+s25\cs151\application\OfficeHoursTableView$1.class
 s25\cs151\application\TimePicker.class
 s25\cs151\application\DatabaseHelper.class
 s25\cs151\application\CoursesPage.class

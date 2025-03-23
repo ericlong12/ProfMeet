@@ -56,19 +56,21 @@ public class OfficeHoursTableView extends Application {
                 officeHoursList.add(new OfficeHours(semester, year, days, "", "", ""));
             }
 
-            // Sorting the data
+            // Custom sorting: by year DESC, then semester order (Spring -> Summer -> Fall -> Winter)
             List<String> semesterOrder = List.of("Spring", "Summer", "Fall", "Winter");
 
             FXCollections.sort(officeHoursList, new Comparator<OfficeHours>() {
                 @Override
                 public int compare(OfficeHours a, OfficeHours b) {
-                    int aIndex = semesterOrder.indexOf(a.getSemester());
-                    int bIndex = semesterOrder.indexOf(b.getSemester());
+                    int yearA = Integer.parseInt(a.getYear());
+                    int yearB = Integer.parseInt(b.getYear());
 
-                    if (aIndex != bIndex) {
-                        return Integer.compare(aIndex, bIndex); // sort by semester first
+                    if (yearA != yearB) {
+                        return Integer.compare(yearB, yearA); // descending year
                     } else {
-                        return Integer.compare(Integer.parseInt(b.getYear()), Integer.parseInt(a.getYear())); // then go by the year decending order
+                        int indexA = semesterOrder.indexOf(a.getSemester());
+                        int indexB = semesterOrder.indexOf(b.getSemester());
+                        return Integer.compare(indexA, indexB); // ascending semester
                     }
                 }
             });
