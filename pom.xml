@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>s25.cs151</groupId>
-    <artifactId>ProfMeet</artifactId> <!-- 🔹 Ensure it's 'ProfMeet' consistently -->
+    <artifactId>ProfMeet</artifactId> 
     <version>1.0-SNAPSHOT</version>
-    <name>ProfMeet</name> <!-- 🔹 Changed from 'HelloWorld' to match your project -->
+    <name>ProfMeet</name> 
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,6 +48,13 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.44.1.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -69,7 +76,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>s25.cs151.application.Main</mainClass> <!-- 🔹 Correct main class path -->
+                            <mainClass>s25.cs151.application.Main</mainClass> 
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

@@ -6,9 +6,13 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class OfficeHoursTableView extends Application {
 
@@ -22,54 +26,49 @@ public class OfficeHoursTableView extends Application {
     @Override
     public void start(Stage primaryStage) {
         table = new TableView<>();
-        officeHoursList = FXCollections.observableArrayList(
-            new OfficeHours("Spring", "2025", "Monday", "10:00 AM - 11:00 AM", "CS151", "Software Design"),
-            new OfficeHours("Fall", "2024", "Wednesday", "2:00 PM - 3:30 PM", "CS146", "Data Structures")
-        );
+        officeHoursList = FXCollections.observableArrayList();
 
-        table.setEditable(true);
+        loadDataFromDatabase(); 
+
+        table.setEditable(false);
         setupColumns();
         table.setItems(officeHoursList);
 
-        Button addButton = new Button("Add Row");
-        addButton.setOnAction(_ -> officeHoursList.add(new OfficeHours("", "", "", "", "", "")));
-
-        Button deleteButton = new Button("Delete Selected");
-        deleteButton.setOnAction(_ -> {
-            OfficeHours selected = table.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                officeHoursList.remove(selected);
-            }
-        });
-
-        VBox vbox = new VBox(table, addButton, deleteButton);
-        Scene scene = new Scene(vbox, 800, 400);
+        VBox vbox = new VBox(table);
+        Scene scene = new Scene(vbox, 600, 400);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Office Hours Editor");
+        primaryStage.setTitle("Saved Semester Office Hours");
         primaryStage.show();
     }
 
-    private void setupColumns() {
-        String[] columnNames = {"Semester", "Year", "Days", "Time Slots", "Course Code", "Course Name"};
-        String[] propertyNames = {"semester", "year", "days", "timeSlots", "courseCode", "courseName"};
+    private void loadDataFromDatabase() {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:office_hours.db");
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT semester, year, days FROM semester_office_hours ORDER BY year DESC, semester")) {
 
-        for (int columnIndex = 0; columnIndex < columnNames.length; columnIndex++) {
-            TableColumn<OfficeHours, String> column = new TableColumn<>(columnNames[columnIndex]);
-            column.setCellValueFactory(new PropertyValueFactory<>(propertyNames[columnIndex]));
-            column.setCellFactory(TextFieldTableCell.forTableColumn());
-            final int colIndex = columnIndex;
-            column.setOnEditCommit(event -> {
-                OfficeHours row = event.getRowValue();
-                switch (propertyNames[colIndex]) {
-                    case "semester" -> row.setSemester(event.getNewValue());
-                    case "year" -> row.setYear(event.getNewValue());
-                    case "days" -> row.setDays(event.getNewValue());
-                    case "timeSlots" -> row.setTimeSlots(event.getNewValue());
-                    case "courseCode" -> row.setCourseCode(event.getNewValue());
-                    case "courseName" -> row.setCourseName(event.getNewValue());
-                }
-            });
-            table.getColumns().add(column);
+            while (rs.next()) {
+                String semester = rs.getString("semester");
+                String year = String.valueOf(rs.getInt("year"));
+                String days = rs.getString("days");
+
+                officeHoursList.add(new OfficeHours(semester, year, days, "", "", ""));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    private void setupColumns() {
+        TableColumn<OfficeHours, String> colSemester = new TableColumn<>("Semester");
+        colSemester.setCellValueFactory(new PropertyValueFactory<>("semester"));
+
+        TableColumn<OfficeHours, String> colYear = new TableColumn<>("Year");
+        colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
+
+        TableColumn<OfficeHours, String> colDays = new TableColumn<>("Days");
+        colDays.setCellValueFactory(new PropertyValueFactory<>("days"));
+
+        table.getColumns().addAll(colSemester, colYear, colDays);
     }
 }
