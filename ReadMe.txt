@@ -1,4 +1,4 @@
-#Application: ProfMeet
+#Name of Application: ProfMeet
 
 #Version: 0.4
 
@@ -8,7 +8,6 @@
   Thao Nguyen: Develop Homepage, Edit/make sure data exception handling is correct, edit ReadMe
   Eric Long: Create a system where data is editable by the user, supported in data handling, Setup project files and Homepage
   Frances Belleza: Office Hours Page, Fix office hours page, create timeslots page & course page
-
 
 #Description:
 
@@ -38,4 +37,3 @@ How to Use:
 2. Office Hours Page: Advisors can set their office hours by clicking the "Add Office Hours" button. The available office hours are then displayed for students to view and book.
 
 3. Booking Appointments: Students can view the available time slots based on the office hours set by the advisors and select a time that works best for them.
-
