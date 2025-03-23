@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Comparator;
+import java.util.List;
 
 public class OfficeHoursTableView extends Application {
 
@@ -28,7 +30,7 @@ public class OfficeHoursTableView extends Application {
         table = new TableView<>();
         officeHoursList = FXCollections.observableArrayList();
 
-        loadDataFromDatabase(); 
+        loadDataFromDatabase();
 
         table.setEditable(false);
         setupColumns();
@@ -44,7 +46,7 @@ public class OfficeHoursTableView extends Application {
     private void loadDataFromDatabase() {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:office_hours.db");
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT semester, year, days FROM semester_office_hours ORDER BY year DESC, semester")) {
+             ResultSet rs = stmt.executeQuery("SELECT semester, year, days FROM semester_office_hours")) {
 
             while (rs.next()) {
                 String semester = rs.getString("semester");
@@ -53,6 +55,23 @@ public class OfficeHoursTableView extends Application {
 
                 officeHoursList.add(new OfficeHours(semester, year, days, "", "", ""));
             }
+
+            // Sort after loading
+            List<String> semesterOrder = List.of("Spring", "Summer", "Fall", "Winter");
+
+            FXCollections.sort(officeHoursList, new Comparator<OfficeHours>() {
+                @Override
+                public int compare(OfficeHours a, OfficeHours b) {
+                    int aIndex = semesterOrder.indexOf(a.getSemester());
+                    int bIndex = semesterOrder.indexOf(b.getSemester());
+
+                    if (aIndex != bIndex) {
+                        return Integer.compare(aIndex, bIndex); // sort by semester first
+                    } else {
+                        return Integer.compare(Integer.parseInt(b.getYear()), Integer.parseInt(a.getYear())); // then go by the year decending order
+                    }
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
