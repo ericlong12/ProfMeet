@@ -1,4 +1,4 @@
-#Name of Application: ProfMeet
+# Name of Application: ProfMeet
 
 #Version: 0.4
 
