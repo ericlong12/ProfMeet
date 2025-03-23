@@ -1,6 +1,6 @@
-#Name of Application: ProfMeet
+# Name of Application: ProfMeet
 
-#Version: 0.4
+# Version: 0.4
 
 #Acknowledgements:
 
@@ -9,17 +9,17 @@
   Eric Long: Create a system where data is editable by the user, supported in data handling, Setup project files and Homepage
   Frances Belleza: Office Hours Page, Fix office hours page, create timeslots page & course page
 
-#Description:
+# Description:
 
 ProfMeet is a student advising appointment system designed to simplify the scheduling process for students and advisors. The app allows students to book appointments during available office hours, and advisors can manage their office hours, time slots, and courses. 
 
-#This application supports the following features:
+# This application supports the following features:
  Manage office hours for advisors.
  Add available time slots for appointments.
  Manage courses for both students and advisors.
  Book advising appointments based on available time slots.
 
-#Features:
+# Features:
 
 Homepage: Displays the current semester and year with interactive buttons for various functions.
 Add Office Hours: Allows advisors to add and manage their office hours.
