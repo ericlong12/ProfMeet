@@ -1,7 +1,9 @@
 s25\cs151\application\OfficeHoursTableView.class
 module-info.class
 s25\cs151\application\Homepage.class
+s25\cs151\application\TimeSlotsPage.class
 s25\cs151\application\OfficeHours.class
 s25\cs151\application\OfficeHoursPage.class
 s25\cs151\application\Main.class
 s25\cs151\application\TimePicker.class
+s25\cs151\application\CoursesPage.class
