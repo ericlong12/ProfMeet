@@ -12,14 +12,13 @@ public class Main extends Application {
         launch(args);
     }
 
-    // PRIMARY STAGE FOR HOMEPAGE
+    // Homepage is here
     @Override
     public void start(Stage primaryStage) {
-
-        // Open Homepage first instead of OfficeHoursPage
+        DatabaseHelper.initializeDatabase(); 
+    
         Homepage homepage = new Homepage(primaryStage);
         homepage.start(primaryStage);
-
     }
 
 }

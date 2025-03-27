@@ -2,6 +2,7 @@
 *
 *    Written by Frances Belleza
 *    Edited by Hari Sowmith Reddy
+*    Edited by Eric Long
 *
 */
 
@@ -33,8 +34,7 @@ public class OfficeHoursPage {
 
     private TextField yearField;
     private Stage stage; // Store the Stage
-
-
+    private ComboBox<String> semesterDropdown; 
 //    public OfficeHoursPage(Stage stage) {
 //         this.stage = stage;
 //    }
@@ -57,7 +57,7 @@ public class OfficeHoursPage {
         semesterLabel = new Label("Semester:");
         semesterLabel.setFont(Font.font("Istok Web", 16));
         semesterLabel.setStyle("-fx-font-weight: bold;");
-        ComboBox<String> semesterDropdown = new ComboBox<>();
+        semesterDropdown = new ComboBox<>();
         semesterDropdown.getItems().addAll("Spring", "Summer", "Fall", "Winter");
         semesterDropdown.setValue("Spring");
 
@@ -141,23 +141,30 @@ public class OfficeHoursPage {
     private void validateForm() {
         List<String> errors = new ArrayList<>();
 
-        if (yearField.getText().isEmpty() || yearField.getText().length() != 4) {
+        if (yearField.getText().isEmpty() || !yearField.getText().matches("\\d{4}")) {
             errors.add("Invalid year! Please enter a valid 4-digit year!");
         }
 
-        if (!mon.isSelected() && !tues.isSelected() && !wed.isSelected() && !thurs.isSelected() && !fri.isSelected()) {
+        List<String> selectedDays = new ArrayList<>();
+        if (mon.isSelected()) selectedDays.add("Monday");
+        if (tues.isSelected()) selectedDays.add("Tuesday");
+        if (wed.isSelected()) selectedDays.add("Wednesday");
+        if (thurs.isSelected()) selectedDays.add("Thursday");
+        if (fri.isSelected()) selectedDays.add("Friday");
+
+        if (selectedDays.isEmpty()) {
             errors.add("Please enter at least one day!");
         }
 
         if (!errors.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, String.join("\n", errors));
         } else {
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setTitle("Success!");
-            successAlert.setHeaderText(null);
-            successAlert.setContentText("Office Hours Submitted!");
+            OfficeHoursSession.semester = semesterDropdown.getValue();
+            OfficeHoursSession.year = Integer.parseInt(yearField.getText());
+            OfficeHoursSession.days = String.join(",", selectedDays);          
+            
+            switchToTimeSlotsPage();
 
-            successAlert.showAndWait().ifPresent(response -> switchToTimeSlotsPage());
         }
     }
 

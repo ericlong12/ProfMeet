@@ -33,6 +33,8 @@ public class Homepage extends Application {
         Button addTimeSlotsButton = new Button("Add Time Slots");
         Button addCourseButton = new Button("Add Course");
         Button addAppointmentButton = new Button("Add Appointment");
+        Button viewSemesterButton = new Button("View Semester Office Hours"); 
+        Button viewTimeSlotsButton = new Button("View Time Slots"); // 👈 New Button
         System.out.println("Default JavaFX Font: " + javafx.scene.text.Font.getDefault()); //added this to check font we want to use (Istok Web) 
 
         // dashboard function will talk about it later
@@ -45,6 +47,8 @@ public class Homepage extends Application {
         addTimeSlotsButton.setOnAction(e -> switchToTimeSlotsPage());
         addCourseButton.setOnAction(e -> switchToCoursesPage());
         addAppointmentButton.setOnAction(e -> handleAddAppointment());
+        viewSemesterButton.setOnAction(e -> switchToOfficeHoursTableView()); // 👈 Added action
+        viewTimeSlotsButton.setOnAction(e -> switchToTimeSlotsTableView()); // 👈 New action
 
         Text firsTtitle = new Text("Welcome to");
         firsTtitle.setFont(istokFont); // Apply Istok Web font
@@ -85,7 +89,7 @@ public class Homepage extends Application {
         centeredBox.setStyle("-fx-alignment: center;");
 
         // Buttons layout
-        VBox buttonBox = new VBox(10, addOfficeHoursButton, addTimeSlotsButton, addCourseButton, addAppointmentButton);
+        VBox buttonBox = new VBox(10, addOfficeHoursButton, addTimeSlotsButton, addCourseButton, addAppointmentButton, viewSemesterButton, viewTimeSlotsButton); // 👈 New button added here
         buttonBox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Create a VBox to hold the main title and the box below it
@@ -101,7 +105,6 @@ public class Homepage extends Application {
         primaryStage.setMinWidth(900);  // picks the width
         primaryStage.setMinHeight(600); // picks the height
         
-        // 🔹 **Ensure the window opens**
         primaryStage.show();
     }
 
@@ -129,6 +132,14 @@ public class Homepage extends Application {
 
     private void handleAddAppointment() {
         System.out.println("Add Appointment clicked");
+    }
+
+    private void switchToOfficeHoursTableView() {
+        new OfficeHoursTableView().start(new Stage());
+    }
+
+    private void switchToTimeSlotsTableView() {
+        new TimeSlotsTableView().start(new Stage());
     }
 
     public static void main(String[] args) {
