@@ -34,8 +34,7 @@ public class OfficeHoursPage {
 
     private TextField yearField;
     private Stage stage; // Store the Stage
-    private ComboBox<String> semesterDropdown; // 👈 Added for access in validation
-
+    private ComboBox<String> semesterDropdown; 
 //    public OfficeHoursPage(Stage stage) {
 //         this.stage = stage;
 //    }
@@ -160,26 +159,12 @@ public class OfficeHoursPage {
         if (!errors.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, String.join("\n", errors));
         } else {
-            String semester = semesterDropdown.getValue();
-            int year = Integer.parseInt(yearField.getText());
-            String daysCSV = String.join(",", selectedDays);
-
-            String timeSlots = "10:00 AM - 11:00 AM";      // placeholder for now (will work on it more later)
-            String courseCode = "CS151";                   // placeholder for now (will work on it more later)
-            String courseName = "Software Design";         // placeholder for now (will work on it more later)
+            OfficeHoursSession.semester = semesterDropdown.getValue();
+            OfficeHoursSession.year = Integer.parseInt(yearField.getText());
+            OfficeHoursSession.days = String.join(",", selectedDays);          
             
-            boolean success = DatabaseHelper.insertSemester(semester, year, daysCSV, timeSlots, courseCode, courseName);
-            
-            if (success) {
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Success!");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("Office Hours Submitted!");
+            switchToTimeSlotsPage();
 
-                successAlert.showAndWait().ifPresent(response -> switchToTimeSlotsPage());
-            } else {
-                showAlert(Alert.AlertType.ERROR, "This semester and year already exist!");
-            }
         }
     }
 

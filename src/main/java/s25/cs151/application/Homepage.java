@@ -34,6 +34,7 @@ public class Homepage extends Application {
         Button addCourseButton = new Button("Add Course");
         Button addAppointmentButton = new Button("Add Appointment");
         Button viewSemesterButton = new Button("View Semester Office Hours"); 
+        Button viewTimeSlotsButton = new Button("View Time Slots"); // 👈 New Button
         System.out.println("Default JavaFX Font: " + javafx.scene.text.Font.getDefault()); //added this to check font we want to use (Istok Web) 
 
         // dashboard function will talk about it later
@@ -47,6 +48,7 @@ public class Homepage extends Application {
         addCourseButton.setOnAction(e -> switchToCoursesPage());
         addAppointmentButton.setOnAction(e -> handleAddAppointment());
         viewSemesterButton.setOnAction(e -> switchToOfficeHoursTableView()); // 👈 Added action
+        viewTimeSlotsButton.setOnAction(e -> switchToTimeSlotsTableView()); // 👈 New action
 
         Text firsTtitle = new Text("Welcome to");
         firsTtitle.setFont(istokFont); // Apply Istok Web font
@@ -87,7 +89,7 @@ public class Homepage extends Application {
         centeredBox.setStyle("-fx-alignment: center;");
 
         // Buttons layout
-        VBox buttonBox = new VBox(10, addOfficeHoursButton, addTimeSlotsButton, addCourseButton, addAppointmentButton, viewSemesterButton); // 👈 Added new button
+        VBox buttonBox = new VBox(10, addOfficeHoursButton, addTimeSlotsButton, addCourseButton, addAppointmentButton, viewSemesterButton, viewTimeSlotsButton); // 👈 New button added here
         buttonBox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Create a VBox to hold the main title and the box below it
@@ -134,6 +136,10 @@ public class Homepage extends Application {
 
     private void switchToOfficeHoursTableView() {
         new OfficeHoursTableView().start(new Stage());
+    }
+
+    private void switchToTimeSlotsTableView() {
+        new TimeSlotsTableView().start(new Stage());
     }
 
     public static void main(String[] args) {
