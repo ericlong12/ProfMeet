@@ -1,7 +1,7 @@
 /*
- *   Written by Frances Belleza
- *
- * */
+*   Written by Frances Belleza
+*
+* */
 
 
 package s25.cs151.application;

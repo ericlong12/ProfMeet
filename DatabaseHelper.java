@@ -23,7 +23,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
+    
 
     public static boolean insertSemester(String semester, int year, String days, String timeSlots, String courseCode, String courseName, String courseSection) {
         String insertSQL = "INSERT OR IGNORE INTO semester_office_hours (semester, year, days, timeSlots, courseCode, courseName, courseSection) VALUES (?, ?, ?, ?, ?, ?, ?)";

@@ -1,11 +1,11 @@
 /* TimePicker Class
- *
- *   Written by Frances Belleza
- *   Edited by Hari Sowmith Reddy
- *
- *   This class is used in TimeSlotsPage
- *
- * */
+*
+*   Written by Frances Belleza
+*   Edited by Hari Sowmith Reddy
+*
+*   This class is used in TimeSlotsPage
+*
+* */
 
 package s25.cs151.application;
 

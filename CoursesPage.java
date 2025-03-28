@@ -1,5 +1,6 @@
 /*
  *    Written by Frances Belleza
+ *    Edited by Hari Sowmith Reddy
  *
  *      (3.27) FB - What do i need to do?
  *              [x] add coursesTableView
@@ -70,16 +71,19 @@ public class CoursesPage {
         submit.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
         submit.setAlignment(Pos.CENTER);
 
-        //Button for Returning to Home Page
-        backButton = new Button("Back to Home Page");
-        backButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
-        backButton.setAlignment(Pos.CENTER);
-
-
         submit.setOnAction(event -> addCourse());
         //finish.setOnAction(event ->addCourse());
 
-        HBox buttonContainer = new HBox(10, submit, backButton);
+        // back to home page button
+        backButton = new Button("Back To Home Page");
+        backButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
+
+        backButton.setAlignment(Pos.CENTER);
+
+        backButton.setOnAction(e -> switchToHomepage());
+
+
+        HBox buttonContainer = new HBox(20, submit, backButton);
         buttonContainer.setAlignment(Pos.CENTER); // Align to the bottom right
         HBox.setMargin(buttonContainer, new Insets(20, 0, 0, 0)); // 20px space from time slots
 
@@ -144,12 +148,6 @@ public class CoursesPage {
 
     }
 
-    private void switchToHomepage(ActionEvent actionEvent) {
-        Homepage homepage = new Homepage(stage);
-        Scene homepageScene = homepage.getScene(stage);
-        stage.setScene(homepageScene);
-    }
-
     private void showAlert(Alert.AlertType type, String message) {
         String title = (type == Alert.AlertType.ERROR) ? "Error" : "Notification";
 
@@ -160,10 +158,25 @@ public class CoursesPage {
         alert.showAndWait();
     }
 
+    private void switchToHomepage(ActionEvent event) {
+        Stage homepageStage = new Stage();
+        Homepage homepage = new Homepage(homepageStage);
+
+        try {
+            homepage.start(homepageStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
     private void switchToHomepage() {
         Homepage homepage = new Homepage(stage);
-        Scene homepageScene = homepage.getScene(stage);
-        stage.setScene(homepageScene);
+        homepage.start(stage);
     }
 
 }
+
+

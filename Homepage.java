@@ -1,8 +1,8 @@
 /*
- *       Written by Eric Long & Thao Nguyen
- *       Edited by Frances Belleza
- *
- * */
+*       Written by Eric Long & Thao Nguyen
+*       Edited by Frances Belleza
+*
+* */
 
 
 package s25.cs151.application;
@@ -41,7 +41,7 @@ public class Homepage extends Application {
         Button addTimeSlotsButton = new Button("Add Time Slots");
         Button addCourseButton = new Button("Add Course");
         Button addAppointmentButton = new Button("Add Appointment");
-        Button viewSemesterButton = new Button("View Semester Office Hours");
+        Button viewSemesterButton = new Button("View Semester Office Hours"); 
         Button viewTimeSlotsButton = new Button("View Time Slots"); // 👈 New Button
         Button viewCoursesButton = new Button("View Courses");
         System.out.println("Default JavaFX Font: " + javafx.scene.text.Font.getDefault()); //added this to check font we want to use (Istok Web)
@@ -116,11 +116,9 @@ public class Homepage extends Application {
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(900);  // picks the width
         primaryStage.setMinHeight(600); // picks the height
-
+        
         primaryStage.show();
     }
-
-
 
     // Handlers for the buttons
     private void switchToOfficeHoursPage() {

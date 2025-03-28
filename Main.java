@@ -15,8 +15,8 @@ public class Main extends Application {
     // Homepage is here
     @Override
     public void start(Stage primaryStage) throws Exception {
-        DatabaseHelper.initializeDatabase();
-
+        DatabaseHelper.initializeDatabase(); 
+    
         Homepage homepage = new Homepage(primaryStage);
         homepage.start(primaryStage);
     }
