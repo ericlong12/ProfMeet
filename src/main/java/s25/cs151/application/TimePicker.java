@@ -1,11 +1,9 @@
 /* TimePicker Class
+*
 *   Written by Frances Belleza
 *   Edited by Hari Sowmith Reddy
 *
-* - TimePicker(): constructor
-* - getFormattedTime(): method to format time
-*
-* This class is used in OfficeHoursPage to gather time from user.
+*   This class is used in TimeSlotsPage
 *
 * */
 

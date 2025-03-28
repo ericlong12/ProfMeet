@@ -66,7 +66,7 @@ public class TimeSlotsTableView extends Application {
                 String timeSlot = rs.getString("timeSlots");
 
                 // makes it show up in the table
-                timeSlotList.add(new OfficeHours(semester, year, days, timeSlot, "", ""));
+                timeSlotList.add(new OfficeHours(semester, year, days, timeSlot));
             }
 
             // Sorts the times 8:00 AM comes before 10:15 AM

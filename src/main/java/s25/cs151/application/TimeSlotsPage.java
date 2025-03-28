@@ -1,6 +1,7 @@
-/* OfficeHoursPage.java
+/*
  *
  *    Written by Frances Belleza
+ *    Edited by Eric Long
  *
  */
 
@@ -40,10 +41,7 @@
  
          HBox titleBox = new HBox(20, title);
          titleBox.setStyle("-fx-padding: 20; -fx-alignment: center;");
- 
-         // need to add time slot
-         // from hour -> time picker, required
-         // to hour -> time picker, required
+
          fromTime = new Label("From:");
          toTime = new Label("To:");
          fromHour = new TimePicker();
@@ -107,7 +105,8 @@
                          OfficeHoursSession.days,
                          formattedSlot,
                          "CS151", // placeholder
-                         "Software Design" // placeholder
+                         "Software Design", // placeholder
+                         "04" //also placeholder
                  );
  
                  if (success) {

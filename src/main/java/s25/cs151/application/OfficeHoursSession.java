@@ -7,4 +7,5 @@ public class OfficeHoursSession {
     public static String semester;
     public static int year;
     public static String days;
+    public static String timeSlots;
 }
