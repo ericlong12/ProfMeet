@@ -162,9 +162,6 @@ public class CoursesPage {
         currentStage.close();
     }
 
-
-
-
 }
 
 

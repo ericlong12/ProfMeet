@@ -50,42 +50,11 @@ public class CoursesTableView {
         primaryStage.show();
     }
 
-//    private void loadCoursesFromDatabase() {
-//        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:office_hours.db");
-//             Statement state = conn.createStatement();
-//             ResultSet results = state.executeQuery("SELECT courseCode, courseName, courseSection FROM semester_office_hours")) {
-//
-//            while (results.next()) {
-//                Courses course = new Courses(
-//                        results.getString("courseCode"),
-//                        results.getString("courseName"),
-//                        results.getString("courseSection")
-//                );
-//                courseInfo.add(course);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-//    private void setupColumns() {
-//        TableColumn<Courses, String> columnCourseCode = new TableColumn<>("Course Code");
-//        columnCourseCode.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
-//
-//        TableColumn<Courses, String> columnCourseName = new TableColumn<>("Course Name");
-//        columnCourseName.setCellValueFactory(new PropertyValueFactory<>("courseName"));
-//
-//        TableColumn<Courses, String> columnCourseSection = new TableColumn<>("Course Section");
-//        columnCourseSection.setCellValueFactory(new PropertyValueFactory<>("courseSection"));
-//
-//        table.getColumns().addAll(columnCourseCode, columnCourseName, columnCourseSection);
-//    }
-
     private void loadCoursesFromDatabase() {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:office_hours.db");
              Statement state = conn.createStatement();
              ResultSet results = state.executeQuery(
-                     "SELECT courseCode, courseName, courseSection FROM semester_office_hours ORDER BY LOWER(courseCode) ASC")) { // ✅ SQL Sorting
+                     "SELECT courseCode, courseName, courseSection FROM semester_office_hours ORDER BY LOWER(courseCode) DESC")) { // ✅ Now DESCENDING
 
             while (results.next()) {
                 Courses course = new Courses(
@@ -104,7 +73,7 @@ public class CoursesTableView {
         TableColumn<Courses, String> columnCourseCode = new TableColumn<>("Course Code");
         columnCourseCode.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
         columnCourseCode.setSortable(true);
-        columnCourseCode.setSortType(TableColumn.SortType.ASCENDING);
+        columnCourseCode.setSortType(TableColumn.SortType.DESCENDING);
 
         TableColumn<Courses, String> columnCourseName = new TableColumn<>("Course Name");
         columnCourseName.setCellValueFactory(new PropertyValueFactory<>("courseName"));
@@ -116,6 +85,5 @@ public class CoursesTableView {
 
         table.getSortOrder().add(columnCourseCode);
     }
-
 
 }
