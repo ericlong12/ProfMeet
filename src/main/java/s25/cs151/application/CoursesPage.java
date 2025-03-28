@@ -8,13 +8,15 @@
  *              [x] seperate courses class
  *              [x] add courses info into database helper
  *              [x] add courseSection into OfficeHours
- *              [] fix bug from courses to homepage
+ *              [x] fix bug from courses to homepage
+ *              [] order table by course code
  *
  */
 
 package s25.cs151.application;
 
 
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,15 +28,13 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.Node;
+
 public class CoursesPage {
     private Stage stage;
     private Label courses, title;
     private TextField courseCode, courseName, courseSection;
     private Button submit;
-
-//    public CoursesPage(Stage stage) {
-//        this.stage = stage;
-//    }
 
     public Scene getScene(Stage stage){
         Font istokFont = Font.font("Istok Web", 16);
@@ -68,8 +68,7 @@ public class CoursesPage {
         submit = new Button("Submit");
         submit.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
         submit.setAlignment(Pos.CENTER);
-        //finish = new Button("Finish");
-        //finish.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-alignment: right; -fx-text-fill: white;");
+
 
         submit.setOnAction(event -> addCourse());
         //finish.setOnAction(event ->addCourse());
@@ -96,7 +95,6 @@ public class CoursesPage {
     }
 
     private void addCourse(){
-        // DatabaseHelper.initializeDatabase(); //needed for debug
 
         List<String> errors = new ArrayList<>();
 
@@ -127,14 +125,13 @@ public class CoursesPage {
                 courseSection.getText().trim()
         );
 
-        //System.out.println("Insert success: " + success); // for debugging
-
         if(success) {
             Alert successAlert =  new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Success");
             successAlert.setHeaderText(null);
             successAlert.setContentText("Information successfully added!");
-            successAlert.showAndWait().ifPresent(response -> switchToHomepage());
+            submit.setOnAction(this::switchToHomepage);
+            //successAlert.showAndWait().ifPresent(response -> switchToHomepage());
         } else {
             showAlert(Alert.AlertType.ERROR, "Failed to add info, please try again.");
         }
@@ -151,13 +148,22 @@ public class CoursesPage {
         alert.showAndWait();
     }
 
-    private void switchToHomepage() {
-        Stage homepageStage = new Stage(); // Create a new stage
+    private void switchToHomepage(ActionEvent event) {
+        Stage homepageStage = new Stage();
         Homepage homepage = new Homepage(homepageStage);
-        homepage.start(homepageStage);
 
-        stage.close();
+        try {
+            homepage.start(homepageStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
     }
+
+
+
 
 }
 

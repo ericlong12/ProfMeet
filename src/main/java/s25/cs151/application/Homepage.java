@@ -31,6 +31,7 @@ public class Homepage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        this.stage=stage;
         // Loading in the Istok Web font
         Font istokFont = Font.font("Istok Web", 16);
 
