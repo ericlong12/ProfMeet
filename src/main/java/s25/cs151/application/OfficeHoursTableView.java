@@ -53,7 +53,7 @@ public class OfficeHoursTableView extends Application {
                 String year = String.valueOf(rs.getInt("year"));
                 String days = rs.getString("days");
 
-                officeHoursList.add(new OfficeHours(semester, year, days, "", "", ""));
+                officeHoursList.add(new OfficeHours(semester, year, days, ""));
             }
 
             // Custom sorting: by year DESC, then semester order (Spring -> Summer -> Fall -> Winter)

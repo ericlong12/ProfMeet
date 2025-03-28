@@ -1,6 +1,14 @@
-/* OfficeHoursPage.java
- *
+/*
  *    Written by Frances Belleza
+ *
+ *      (3.27) FB - What do i need to do?
+ *              [x] add coursesTableView
+ *              [x] add method in CoursesPage to handle data
+ *              [x] add button in homepage to view coursesTable
+ *              [x] seperate courses class
+ *              [x] add courses info into database helper
+ *              [x] add courseSection into OfficeHours
+ *              [] fix bug from courses to homepage
  *
  */
 
@@ -38,7 +46,6 @@ public class CoursesPage {
         HBox titleBox = new HBox(20, title);
         titleBox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
-        // need to add courses
         // course code -> text field, required, strings only
         // course name -> text field, required, strings only
         // section number -> text field, required, string only
@@ -57,11 +64,16 @@ public class CoursesPage {
         coursesBox.setMaxSize(500, 100);
         coursesBox.setAlignment(Pos.CENTER_LEFT);
 
-        // submit button
+        // buttons
         submit = new Button("Submit");
-        submit.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-alignment: right; -fx-text-fill: white;");
-        // Handles restriction
-        submit.setOnAction(event -> validateForm());
+        submit.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
+        submit.setAlignment(Pos.CENTER);
+        //finish = new Button("Finish");
+        //finish.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-alignment: right; -fx-text-fill: white;");
+
+        submit.setOnAction(event -> addCourse());
+        //finish.setOnAction(event ->addCourse());
+
         HBox buttonContainer = new HBox(submit);
         buttonContainer.setAlignment(Pos.CENTER); // Align to the bottom right
         HBox.setMargin(buttonContainer, new Insets(20, 0, 0, 0)); // 20px space from time slots
@@ -83,7 +95,9 @@ public class CoursesPage {
 
     }
 
-    public void validateForm() {
+    private void addCourse(){
+        // DatabaseHelper.initializeDatabase(); //needed for debug
+
         List<String> errors = new ArrayList<>();
 
         if (courseCode.getText().isEmpty()) {
@@ -100,13 +114,29 @@ public class CoursesPage {
 
         if (!errors.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, String.join("\n", errors));
-        } else {
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setTitle("Success!");
-            successAlert.setHeaderText(null);
-            successAlert.setContentText("Office Hours Submitted!");
+            return;
+        }
 
+        boolean success = DatabaseHelper.insertSemester(
+                OfficeHoursSession.semester,
+                OfficeHoursSession.year,
+                OfficeHoursSession.days,
+                "00:00AM - 00:00AM", //placeholder
+                courseCode.getText().trim(),
+                courseName.getText().trim(),
+                courseSection.getText().trim()
+        );
+
+        //System.out.println("Insert success: " + success); // for debugging
+
+        if(success) {
+            Alert successAlert =  new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Success");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("Information successfully added!");
             successAlert.showAndWait().ifPresent(response -> switchToHomepage());
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Failed to add info, please try again.");
         }
 
     }
