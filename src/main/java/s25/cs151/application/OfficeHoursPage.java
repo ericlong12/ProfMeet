@@ -26,11 +26,13 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+
 public class OfficeHoursPage {
     private Label title, semesterLabel, yearLabel,
             daysLabel, courses;
     private CheckBox mon, tues, wed, thurs, fri;
     private Button submit;
+    private Button backButton;
 
     private TextField yearField;
     private Stage stage; // Store the Stage
@@ -103,7 +105,13 @@ public class OfficeHoursPage {
         // Handles restriction
         submit.setOnAction(event -> validateForm());
 
-        HBox buttonContainer = new HBox(submit);
+        // back to home page button
+        backButton = new Button("Back to Home Page");
+        backButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
+        // sets action for back button
+        backButton.setOnAction(event -> switchToHomepage());
+
+        HBox buttonContainer = new HBox(20, submit, backButton);
         buttonContainer.setMinSize(500, 100); // Fixed size, so that it doesn't follow the page expanding
         buttonContainer.setMaxSize(500, 100);
         buttonContainer.setAlignment(Pos.CENTER_RIGHT); // Align to the bottom right
@@ -173,6 +181,11 @@ public class OfficeHoursPage {
         TimeSlotsPage timeSlotsPage = new TimeSlotsPage(stage);
         Scene timeSlotsScene = timeSlotsPage.getScene(stage);
         stage.setScene(timeSlotsScene);
+    }
+
+    private void switchToHomepage() {
+        Homepage homepage = new Homepage(stage);
+        homepage.start(stage);
     }
 
 }

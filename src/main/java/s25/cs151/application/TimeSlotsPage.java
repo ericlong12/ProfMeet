@@ -2,6 +2,7 @@
  *
  *    Written by Frances Belleza
  *    Edited by Eric Long
+ *    Edited by Hari Sowmith Reddy
  *
  */
 
@@ -26,6 +27,7 @@
      private Label title, fromTime, toTime;
      private TimePicker fromHour, toHour;
      private Button addSlotButton, finishButton;
+     private Button backButton;
  
      public TimeSlotsPage(Stage stage) {
          this.stage = stage;
@@ -56,14 +58,17 @@
          // buttons
          addSlotButton = new Button("Add Time Slot");
          finishButton = new Button("Finish");
+         backButton = new Button("Back to Home Page");
  
          addSlotButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
          finishButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
+         backButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
  
          addSlotButton.setOnAction(e -> addTimeSlot());
          finishButton.setOnAction(e -> switchToCoursesPage());
+         backButton.setOnAction(e -> switchToHomepage());
  
-         HBox buttonBox = new HBox(20, addSlotButton, finishButton);
+         HBox buttonBox = new HBox(20, addSlotButton, finishButton, backButton);
          buttonBox.setAlignment(Pos.CENTER);
  
          // layout
@@ -141,5 +146,9 @@
          Scene coursesScene = coursesPage.getScene(stage);
          stage.setScene(coursesScene);
      }
+
+     private void switchToHomepage() {
+         Homepage homepage = new Homepage(stage);
+         homepage.start(stage);
+     }
  }
- 
