@@ -142,7 +142,7 @@
      }
  
      private void switchToCoursesPage() {
-         CoursesPage coursesPage = new CoursesPage();
+         CoursesPage coursesPage = new CoursesPage(stage);
          Scene coursesScene = coursesPage.getScene(stage);
          stage.setScene(coursesScene);
      }
