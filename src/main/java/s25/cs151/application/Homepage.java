@@ -31,7 +31,7 @@ public class Homepage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        this.stage=stage;
+        this.stage= primaryStage;
         // Loading in the Istok Web font
         Font istokFont = Font.font("Istok Web", 16);
 
@@ -137,7 +137,7 @@ public class Homepage extends Application {
 
     private void switchToCoursesPage() {
         //Open TimeSlots Page in the same window
-        CoursesPage coursesPage = new CoursesPage();
+        CoursesPage coursesPage = new CoursesPage(stage);
         Scene coursesScene = coursesPage.getScene(stage);
         stage.setScene(coursesScene);
     }

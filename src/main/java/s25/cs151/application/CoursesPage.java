@@ -32,11 +32,15 @@
  import javafx.scene.Node;
  
  public class CoursesPage {
-     private Stage stage;
+     private Stage stage; // Store the stage
      private Label courses, title;
      private TextField courseCode, courseName, courseSection;
      private Button submit;
      private Button backButton;
+ 
+     public CoursesPage(Stage stage) { // Constructor to receive the stage
+         this.stage = stage;
+     }
  
      public Scene getScene(Stage stage){
          Font istokFont = Font.font("Istok Web", 16);
@@ -80,7 +84,9 @@
  
          backButton.setAlignment(Pos.CENTER);
  
-         backButton.setOnAction(e -> switchToHomepage());
+         backButton.setOnAction(event -> {
+             switchToHomepage(event); // Pass the ActionEvent
+         });
  
  
          HBox buttonContainer = new HBox(20, submit, backButton);
@@ -97,10 +103,10 @@
  
          return new Scene(layout, 900, 600, Color.LIGHTBLUE);
  
- //        Scene scene = new Scene(layout, 900, 600, Color.LIGHTBLUE);
- //        stage.setScene(scene); //sets UI elems to the stage
- //        stage.setTitle("Time Slots");
- //        stage.show(); //used to display window
+         //        Scene scene = new Scene(layout, 900, 600, Color.LIGHTBLUE);
+         //        stage.setScene(scene); //sets UI elems to the stage
+         //        stage.setTitle("Time Slots");
+         //        stage.show(); //used to display window
  
      }
  
@@ -140,8 +146,15 @@
              successAlert.setTitle("Success");
              successAlert.setHeaderText(null);
              successAlert.setContentText("Information successfully added!");
-             submit.setOnAction(this::switchToHomepage);
-             //successAlert.showAndWait().ifPresent(response -> switchToHomepage());
+ 
+             // Modified line: Clear the text fields after successful insertion
+             courseCode.clear();
+             courseName.clear();
+             courseSection.clear();
+ 
+             //Keep the view in the courses page to enter multiple courses.
+             //submit.setOnAction(this::switchToHomepage); -- No more need to go back to homepage after insertion
+             successAlert.showAndWait();
          } else {
              showAlert(Alert.AlertType.ERROR, "Failed to add info, please try again.");
          }
@@ -159,22 +172,18 @@
      }
  
      private void switchToHomepage(ActionEvent event) {
-         Stage homepageStage = new Stage();
-         Homepage homepage = new Homepage(homepageStage);
- 
+         Homepage homepage = new Homepage(stage);
          try {
-             homepage.start(homepageStage);
+             homepage.start(stage); // Use the stored stage
          } catch (Exception e) {
              e.printStackTrace();
          }
- 
-         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-         currentStage.close();
      }
  
-     private void switchToHomepage() {
-         Homepage homepage = new Homepage(stage);
-         homepage.start(stage);
-     }
+     // Removed the no-arg switchToHomepage()
+     // private void switchToHomepage() {
+     //    Homepage homepage = new Homepage(stage);
+     //    homepage.start(stage);
+     //}
  
  }
