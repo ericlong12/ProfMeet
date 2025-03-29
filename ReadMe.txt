@@ -1,13 +1,14 @@
 #Name of Application: ProfMeet
 
-#Version: 0.4
+#Version: 0.5
 
 #Acknowledgements:
 
-  Hari Sowmith: Supported in office Hours Page, Create data handling
-  Thao Nguyen: Develop Homepage, Edit/make sure data exception handling is correct, edit ReadMe
-  Eric Long: Create a system where data is viewable by the user, supported in data handling, Setup project files and Homepage
-  Frances Belleza: Created office Hours Page, Fix office hours page, create timeslots page & course page
+  Hari Sowmith: Connected the new "View Time Slots" feature to the homepage, assisted with UI layout improvements
+  Thao Nguyen: Debugged and fixed time validation logic (From Hour < To Hour), tested input scenarios, updated README
+  Eric Long: Built and connected the TimePicker component to the database, handled SQL insert logic and Time Slot sorting in the TableView
+  Frances Belleza: Created and validated Office Hours, Time Slots, and Courses pages, implemented form validation and UI alignment
+
 
 #Description:
 
@@ -33,7 +34,12 @@ How to Use:
     Add Time Slots: For advisors to set specific time slots for appointments.
     Add Course: For instructors to add courses for students to book advising appointments.
     Add Appointment: For students to book an appointment with an advisor during available office hours.
+    View Time Slots: Opens a table that displays all stored time slots sorted by starting time.
 
 2. Office Hours Page: Advisors can set their office hours by clicking the "Add Office Hours" button. The available office hours are then displayed for students to view and book.
 
 3. Booking Appointments: Students can view the available time slots based on the office hours set by the advisors and select a time that works best for them.
+
+4. Time Slot Validation: The app checks to make sure the "To Hour" is later than the "From Hour". If not, it shows an error message and blocks the entry.
+
+5. Table Sorting: Saved time slots are displayed in a table and are automatically sorted in ascending order by the start time (e.g., 8:00 AM before 10:30 AM).
