@@ -5,6 +5,7 @@ import java.sql.*;
 
 public class DatabaseHelper {
     private static final String DB_URL = "jdbc:sqlite:office_hours.db";
+
     public static void initializeDatabase() {
         // SQL for creating the office_hours table
         String createOfficeHoursTable = "CREATE TABLE IF NOT EXISTS office_hours ("
@@ -34,11 +35,23 @@ public class DatabaseHelper {
                 + "FOREIGN KEY (office_hour_id) REFERENCES office_hours(id)"
                 + ");";
 
-        // Execute all three statements on a single connection
+        // SQL for creating the appointments table
+        String createAppointmentsTable = "CREATE TABLE IF NOT EXISTS appointments ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "studentName TEXT NOT NULL, "
+                + "scheduleDate TEXT NOT NULL, "
+                + "timeSlot TEXT NOT NULL, "
+                + "course TEXT NOT NULL, "
+                + "reason TEXT, "
+                + "comment TEXT"
+                + ");";
+
+        // Execute all four statements on a single connection
         try (Connection conn = connect(); Statement stmt = conn.createStatement()) {
             stmt.execute(createOfficeHoursTable);
             stmt.execute(createTimeSlotsTable);
             stmt.execute(createCoursesTable);
+            stmt.execute(createAppointmentsTable);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -117,11 +130,29 @@ public class DatabaseHelper {
         }
     }
 
+    /* Insert appointment into appointments table */
+    public static boolean insertAppointment(String studentName, String scheduleDate, String timeSlot, String course, String reason, String comment) {
+        String sql = "INSERT INTO appointments (studentName, scheduleDate, timeSlot, course, reason, comment) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, studentName);
+            pstmt.setString(2, scheduleDate);
+            pstmt.setString(3, timeSlot);
+            pstmt.setString(4, course);
+            pstmt.setString(5, reason);
+            pstmt.setString(6, comment);
+
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     private static Connection connect() throws SQLException {
         return DriverManager.getConnection(DB_URL);
     }
-
 
     /* -------------------------------   I NEEDED FOR DEBUGGING (-frances) ------------------------------------- */
 
@@ -182,6 +213,4 @@ public class DatabaseHelper {
 //
 //        return DriverManager.getConnection("jdbc:sqlite:" + dbPath);
 //    }
-
-
 }

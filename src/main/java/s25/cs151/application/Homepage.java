@@ -2,8 +2,7 @@
 *       Written by Eric Long & Thao Nguyen
 *       Edited by Frances Belleza
 *
-* */
-
+*/
 
 package s25.cs151.application;
 
@@ -44,8 +43,9 @@ public class Homepage extends Application {
         Button viewSemesterButton = new Button("View Semester Office Hours"); 
         Button viewTimeSlotsButton = new Button("View Time Slots"); // 👈 New Button
         Button viewCoursesButton = new Button("View Courses");
+        Button addOfficeHoursScheduleButton = new Button("Add Office Hours Schedule"); // 👈 New Button
+        Button viewAppointmentsButton = new Button("View Appointments"); // 👈 New Button
         System.out.println("Default JavaFX Font: " + javafx.scene.text.Font.getDefault()); //added this to check font we want to use (Istok Web)
-
 
         // dashboard function will talk about it later
         // dashboardButton.setOnAction(e -> handleDashBoard);
@@ -57,10 +57,11 @@ public class Homepage extends Application {
         addTimeSlotsButton.setOnAction(e -> switchToTimeSlotsPage());
         addCourseButton.setOnAction(e -> switchToCoursesPage());
         addAppointmentButton.setOnAction(e -> handleAddAppointment());
-        viewSemesterButton.setOnAction(e -> switchToOfficeHoursTableView()); // 👈 Added action
-        viewTimeSlotsButton.setOnAction(e -> switchToTimeSlotsTableView()); // 👈 New action
+        viewSemesterButton.setOnAction(e -> switchToOfficeHoursTableView()); 
+        viewTimeSlotsButton.setOnAction(e -> switchToTimeSlotsTableView()); 
         viewCoursesButton.setOnAction(e -> switchToCoursesTableView());
-
+        addOfficeHoursScheduleButton.setOnAction(e -> switchToOfficeHoursSchedulePage());
+        viewAppointmentsButton.setOnAction(e -> switchToAppointmentsTableView()); 
 
         Text firsTtitle = new Text("Welcome to");
         firsTtitle.setFont(istokFont); // Apply Istok Web font
@@ -101,7 +102,7 @@ public class Homepage extends Application {
         centeredBox.setStyle("-fx-alignment: center;");
 
         // Buttons layout
-        VBox buttonBox = new VBox(10, addOfficeHoursButton, addTimeSlotsButton, addCourseButton, addAppointmentButton, viewSemesterButton, viewTimeSlotsButton, viewCoursesButton); // 👈 New button added here
+        VBox buttonBox = new VBox(10, addOfficeHoursButton, addTimeSlotsButton, addCourseButton, addAppointmentButton, viewSemesterButton, viewTimeSlotsButton, viewCoursesButton, addOfficeHoursScheduleButton, viewAppointmentsButton); // 👈 New buttons added here
         buttonBox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Create a VBox to hold the main title and the box below it
@@ -136,7 +137,7 @@ public class Homepage extends Application {
     }
 
     private void switchToCoursesPage() {
-        //Open TimeSlots Page in the same window
+        //Open Courses Page in the same window
         CoursesPage coursesPage = new CoursesPage(stage);
         Scene coursesScene = coursesPage.getScene(stage);
         stage.setScene(coursesScene);
@@ -153,8 +154,19 @@ public class Homepage extends Application {
     private void switchToTimeSlotsTableView() {
         new TimeSlotsTableView().start(new Stage());
     }
+
     private void switchToCoursesTableView() {
         new CoursesTableView().start(new Stage());
+    }
+
+    private void switchToOfficeHoursSchedulePage() {
+        OfficeHoursSchedulePage officeHoursSchedulePage = new OfficeHoursSchedulePage(stage);
+        Scene officeHoursScheduleScene = officeHoursSchedulePage.getScene(stage);
+        stage.setScene(officeHoursScheduleScene);
+    }
+
+    private void switchToAppointmentsTableView() {
+        new AppointmentsTableView().start(new Stage());
     }
 
     public static void main(String[] args) {
