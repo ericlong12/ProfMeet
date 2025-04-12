@@ -54,7 +54,7 @@ public class CoursesTableView {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:office_hours.db");
              Statement state = conn.createStatement();
              ResultSet results = state.executeQuery(
-                     "SELECT courseCode, courseName, courseSection FROM semester_office_hours ORDER BY LOWER(courseCode) DESC")) { // ✅ Now DESCENDING
+                     "SELECT courseCode, courseName, courseSection FROM courses ORDER BY LOWER(courseCode) DESC")) {
 
             while (results.next()) {
                 Courses course = new Courses(

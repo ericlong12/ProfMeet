@@ -57,21 +57,24 @@ public class TimeSlotsTableView extends Application {
     private void loadDataFromDatabase() {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:office_hours.db");
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT semester, year, days, timeSlots FROM semester_office_hours")) {
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT oh.semester, oh.year, oh.days, ts.timeSlot " +
+                             "FROM time_slots ts " +
+                             "JOIN office_hours oh ON ts.office_hour_id = oh.id"
+             )) {
 
             while (rs.next()) {
                 String semester = rs.getString("semester");
                 String year = String.valueOf(rs.getInt("year"));
                 String days = rs.getString("days");
-                String timeSlot = rs.getString("timeSlots");
+                String timeSlot = rs.getString("timeSlot");  // Note: column name must be 'timeSlot'
 
-                // makes it show up in the table
+                // Create an OfficeHours object (or a custom object for time slots if preferred)
                 timeSlotList.add(new OfficeHours(semester, year, days, timeSlot));
             }
 
-            // Sorts the times 8:00 AM comes before 10:15 AM
+            // Sorting code (if needed)
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-
             timeSlotList.sort((a, b) -> {
                 try {
                     String fromA = a.getTimeSlots().split("-")[0].trim();
@@ -80,13 +83,11 @@ public class TimeSlotsTableView extends Application {
                     LocalTime timeB = LocalTime.parse(fromB, formatter);
                     return timeA.compareTo(timeB); // ascending order
                 } catch (Exception e) {
-                    // catch case
                     return 0;
                 }
             });
 
         } catch (Exception e) {
-            // debug
             e.printStackTrace();
         }
     }
