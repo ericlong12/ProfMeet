@@ -149,32 +149,42 @@ public class OfficeHoursPage {
     private void validateForm() {
         List<String> errors = new ArrayList<>();
 
+        // Validate year & days as before...
         if (yearField.getText().isEmpty() || !yearField.getText().matches("\\d{4}")) {
-            errors.add("Invalid year! Please enter a valid 4-digit year!");
+            errors.add("Please enter a valid 4-digit year!");
         }
-
         List<String> selectedDays = new ArrayList<>();
         if (mon.isSelected()) selectedDays.add("Monday");
         if (tues.isSelected()) selectedDays.add("Tuesday");
         if (wed.isSelected()) selectedDays.add("Wednesday");
         if (thurs.isSelected()) selectedDays.add("Thursday");
         if (fri.isSelected()) selectedDays.add("Friday");
-
         if (selectedDays.isEmpty()) {
-            errors.add("Please enter at least one day!");
+            errors.add("Please select at least one day!");
         }
 
         if (!errors.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, String.join("\n", errors));
-        } else {
-            OfficeHoursSession.semester = semesterDropdown.getValue();
-            OfficeHoursSession.year = Integer.parseInt(yearField.getText());
-            OfficeHoursSession.days = String.join(",", selectedDays);          
-            
-            switchToTimeSlotsPage();
+            return;
+        }
 
+        // Insert Office Hours into the database
+        int officeHourId = DatabaseHelper.insertOfficeHours(
+                semesterDropdown.getValue(),
+                Integer.parseInt(yearField.getText()),
+                String.join(", ", selectedDays)
+        );
+
+        if (officeHourId != -1) {
+            // Save the officeHourId in a session class for later use
+            OfficeHoursSession.id = officeHourId;
+            // Switch to the next page, e.g., TimeSlotsPage
+            switchToTimeSlotsPage();
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Failed to save office hours!");
         }
     }
+
 
     private void switchToTimeSlotsPage() {
         //Open TimeSlots Page in the same window

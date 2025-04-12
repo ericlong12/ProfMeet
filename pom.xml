@@ -75,7 +75,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>s25.cs151.application.Main</mainClass> 
+                            <mainClass>s25.cs151.application.Main</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

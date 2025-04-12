@@ -80,51 +80,40 @@
  
          return new Scene(layout, 900, 600, Color.LIGHTBLUE);
      }
- 
+
      private void addTimeSlot() {
          List<String> errors = new ArrayList<>();
- 
-         if (fromHour.getHour() == 0 || fromHour.getMinute() == null || fromHour.getAmPm() == null ||
-                 toHour.getHour() == 0 || toHour.getMinute() == null || toHour.getAmPm() == null) {
+         // Validate time inputs as before...
+         if (fromHour.getHour() == 0 || fromHour.getMinute() == null ||
+                 toHour.getHour() == 0 || toHour.getMinute() == null) {
              errors.add("Please select a valid time slot!");
          }
- 
-         if (errors.isEmpty()) {
-             String from = fromHour.getFormattedTime();
-             String to = toHour.getFormattedTime();
- 
-             LocalTime fromTimeParsed = parseTime(from);
-             LocalTime toTimeParsed = parseTime(to);
- 
-             if (!toTimeParsed.isAfter(fromTimeParsed)) {
-                 errors.add("End time must be later than start time.");
-             }
- 
-             if (errors.isEmpty()) {
-                 String formattedSlot = from + " - " + to;
- 
-                 // Save to database with current OfficeHoursSession data
-                 boolean success = DatabaseHelper.insertSemester(
-                         OfficeHoursSession.semester,
-                         OfficeHoursSession.year,
-                         OfficeHoursSession.days,
-                         formattedSlot,
-                         "CS151", // placeholder
-                         "Software Design", // placeholder
-                         "04" //also placeholder
-                 );
- 
-                 if (success) {
-                     showAlert(Alert.AlertType.INFORMATION, "Time Slot Added!");
-                 } else {
-                     showAlert(Alert.AlertType.ERROR, "This time slot already exists!");
-                 }
-                 return;
-             }
+
+         String from = fromHour.getFormattedTime();
+         String to = toHour.getFormattedTime();
+         LocalTime fromTimeParsed = parseTime(from);
+         LocalTime toTimeParsed = parseTime(to);
+
+         if (!toTimeParsed.isAfter(fromTimeParsed)) {
+             errors.add("End time must be later than start time.");
          }
- 
-         showAlert(Alert.AlertType.ERROR, String.join("\n", errors));
+
+         if (!errors.isEmpty()) {
+             showAlert(Alert.AlertType.ERROR, String.join("\n", errors));
+             return;
+         }
+
+         String formattedSlot = from + " - " + to;
+
+         // Insert time slot into the time_slots table
+         boolean success = DatabaseHelper.insertTimeSlot(OfficeHoursSession.id, formattedSlot);
+         if (success) {
+             showAlert(Alert.AlertType.INFORMATION, "Time Slot Added!");
+         } else {
+             showAlert(Alert.AlertType.ERROR, "This time slot already exists!");
+         }
      }
+
  
      private LocalTime parseTime(String timeStr) {
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");

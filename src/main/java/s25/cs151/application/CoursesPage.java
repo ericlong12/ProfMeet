@@ -109,58 +109,42 @@
          //        stage.show(); //used to display window
  
      }
- 
-     private void addCourse(){
- 
+
+     private void addCourse() {
          List<String> errors = new ArrayList<>();
- 
+
+         // Validate course fields
          if (courseCode.getText().isEmpty()) {
              errors.add("Please enter a valid Course Code!");
          }
- 
          if (courseName.getText().isEmpty()) {
              errors.add("Course Name is required!");
          }
- 
          if (courseSection.getText().isEmpty()) {
              errors.add("Course Section is required!");
          }
- 
+
          if (!errors.isEmpty()) {
              showAlert(Alert.AlertType.ERROR, String.join("\n", errors));
              return;
          }
- 
-         boolean success = DatabaseHelper.insertSemester(
-                 OfficeHoursSession.semester,
-                 OfficeHoursSession.year,
-                 OfficeHoursSession.days,
-                 "00:00AM - 00:00AM", //placeholder
+
+         // Insert course data into the courses table
+         boolean success = DatabaseHelper.insertCourse(
+                 OfficeHoursSession.id,
                  courseCode.getText().trim(),
                  courseName.getText().trim(),
                  courseSection.getText().trim()
          );
- 
-         if(success) {
-             Alert successAlert =  new Alert(Alert.AlertType.INFORMATION);
-             successAlert.setTitle("Success");
-             successAlert.setHeaderText(null);
-             successAlert.setContentText("Information successfully added!");
- 
-             // Modified line: Clear the text fields after successful insertion
-             courseCode.clear();
-             courseName.clear();
-             courseSection.clear();
- 
-             //Keep the view in the courses page to enter multiple courses.
-             //submit.setOnAction(this::switchToHomepage); -- No more need to go back to homepage after insertion
-             successAlert.showAndWait();
+
+         if (success) {
+             showAlert(Alert.AlertType.INFORMATION, "Course Added!");
          } else {
-             showAlert(Alert.AlertType.ERROR, "Failed to add info, please try again.");
+             showAlert(Alert.AlertType.ERROR, "Failed to add course. It might already exist.");
          }
- 
      }
- 
+
+
      private void showAlert(Alert.AlertType type, String message) {
          String title = (type == Alert.AlertType.ERROR) ? "Error" : "Notification";
  
