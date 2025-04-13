@@ -15,7 +15,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Comparator;
 
 public class AppointmentsTableView extends Application {
@@ -57,11 +59,19 @@ public class AppointmentsTableView extends Application {
                 ));
             }
 
-            // Sort by Schedule Date ascending, then by Time Slot ascending
+            // Schedule Date ascending, then Time Slot ascending
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
             appointmentList.sort(Comparator
                     .comparing((Appointment a) -> LocalDate.parse(a.getScheduleDate(), dateFormatter))
-                    .thenComparing(Appointment::getTimeSlot));
+                    .thenComparing(a -> {
+                        try {
+                            String startTimeStr = a.getTimeSlot().split("-")[0].trim();
+                            return LocalTime.parse(startTimeStr, timeFormatter);
+                        } catch (DateTimeParseException e) {
+                            return LocalTime.MIDNIGHT;
+                        }
+                    }));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,7 +100,7 @@ public class AppointmentsTableView extends Application {
         table.getColumns().addAll(colStudentName, colScheduleDate, colTimeSlot, colCourse, colReason, colComment);
     }
 
-    // Internal class to represent an Appointment
+    // class to represent an Appointment
     public static class Appointment {
         private final String studentName;
         private final String scheduleDate;
