@@ -1,13 +1,13 @@
 #Name of Application: ProfMeet
 
-#Version: 0.5
+#Version: 0.7
 
 #Acknowledgements:
 
   Hari Sowmith: Connected the new "View Time Slots" feature to the homepage, assisted with UI layout improvements
   Thao Nguyen: Debugged and fixed time validation logic (From Hour < To Hour), tested input scenarios, updated README
   Eric Long: Built and connected the TimePicker component to the database, handled SQL insert logic and Time Slot sorting in the TableView
-  Frances Belleza: Created and validated Office Hours, Time Slots, and Courses pages, implemented form validation and UI alignment
+  Frances Belleza: Created and validated Office Hours, Time Slots, Courses pages, implemented form validation and UI alignment, GUI for searchOfficeHoursPage
 
 
 #Description:
