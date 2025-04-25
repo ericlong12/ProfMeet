@@ -62,39 +62,52 @@ public class SearchOfficeHoursPage {
         });
 
         table = new TableView<>();
+        table.setPrefHeight(300);
+        table.setPrefWidth(980);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // Optional: evenly distribute columns
         searchResults = FXCollections.observableArrayList();
         setupTable();
 
         HBox forButtons = new HBox(20, searchButton, deleteButton, homepageButton);
         forButtons.setAlignment(Pos.CENTER);
 
-        VBox layout = new VBox(10, titleBox, searchVBox, forButtons, table);
+        ScrollPane scrollPane = new ScrollPane(table);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setStyle("-fx-padding: 10;");
+
+        VBox layout = new VBox(10, titleBox, searchVBox, forButtons, scrollPane);
         layout.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-padding: 20 20 250 20; -fx-background-color: rgba(66, 223, 244, 0.40);");
-        layout.setMaxWidth(800);
-        layout.setPrefWidth(100);
+        layout.setMaxWidth(1000);
+        layout.setPrefWidth(1000);
 
-        return new Scene(layout, 1000, 600, Color.LIGHTBLUE);
+        return new Scene(layout, 1020, 640, Color.LIGHTBLUE);
     }
 
     private void setupTable() {
         TableColumn<AppointmentsTableView.Appointment, String> colStudentName = new TableColumn<>("Student Name");
         colStudentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        colStudentName.setPrefWidth(150);
 
         TableColumn<AppointmentsTableView.Appointment, String> colScheduleDate = new TableColumn<>("Schedule Date");
         colScheduleDate.setCellValueFactory(new PropertyValueFactory<>("scheduleDate"));
+        colScheduleDate.setPrefWidth(120);
 
         TableColumn<AppointmentsTableView.Appointment, String> colTimeSlot = new TableColumn<>("Time Slot");
         colTimeSlot.setCellValueFactory(new PropertyValueFactory<>("timeSlot"));
+        colTimeSlot.setPrefWidth(140);
 
         TableColumn<AppointmentsTableView.Appointment, String> colCourse = new TableColumn<>("Course");
         colCourse.setCellValueFactory(new PropertyValueFactory<>("course"));
+        colCourse.setPrefWidth(100);
 
         TableColumn<AppointmentsTableView.Appointment, String> colReason = new TableColumn<>("Reason");
         colReason.setCellValueFactory(new PropertyValueFactory<>("reason"));
+        colReason.setPrefWidth(200);
 
         TableColumn<AppointmentsTableView.Appointment, String> colComment = new TableColumn<>("Comment");
         colComment.setCellValueFactory(new PropertyValueFactory<>("comment"));
+        colComment.setPrefWidth(200);
 
         table.getColumns().addAll(colStudentName, colScheduleDate, colTimeSlot, colCourse, colReason, colComment);
         table.setItems(searchResults);
