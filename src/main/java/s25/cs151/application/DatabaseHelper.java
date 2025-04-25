@@ -2,6 +2,8 @@ package s25.cs151.application;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper {
     private static final String DB_URL = "jdbc:sqlite:office_hours.db";
@@ -142,6 +144,53 @@ public class DatabaseHelper {
             pstmt.setString(4, course);
             pstmt.setString(5, reason);
             pstmt.setString(6, comment);
+
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /* Search appointments by case-insensitive substring of student name */
+    public static List<AppointmentsTableView.Appointment> searchAppointmentsByStudentName(String partialName) {
+        List<AppointmentsTableView.Appointment> results = new ArrayList<>();
+        String sql = "SELECT * FROM appointments WHERE LOWER(studentName) LIKE LOWER(?) ORDER BY scheduleDate DESC, timeSlot DESC";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, "%" + partialName + "%");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                results.add(new AppointmentsTableView.Appointment(
+                        rs.getString("studentName"),
+                        rs.getString("scheduleDate"),
+                        rs.getString("timeSlot"),
+                        rs.getString("course"),
+                        rs.getString("reason"),
+                        rs.getString("comment")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return results;
+    }
+
+    /* Delete appointment based on identifying fields */
+    public static boolean deleteAppointment(String studentName, String scheduleDate, String timeSlot, String course) {
+        String sql = "DELETE FROM appointments WHERE studentName = ? AND scheduleDate = ? AND timeSlot = ? AND course = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, studentName);
+            pstmt.setString(2, scheduleDate);
+            pstmt.setString(3, timeSlot);
+            pstmt.setString(4, course);
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {

@@ -1,23 +1,28 @@
 package s25.cs151.application;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalTime;
+
 public class SearchOfficeHoursPage {
     private Stage stage;
     private TextField searchBox;
     private Label title;
-    private Button searchButton, homepageButton;
+    private Button searchButton, homepageButton, deleteButton;
+    private TableView<AppointmentsTableView.Appointment> table;
+    private ObservableList<AppointmentsTableView.Appointment> searchResults;
+
     public SearchOfficeHoursPage(Stage stage) {
         this.stage = stage;
     }
@@ -44,6 +49,11 @@ public class SearchOfficeHoursPage {
         searchButton = new Button("Search");
         searchButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
         searchButton.setAlignment(Pos.CENTER);
+        searchButton.setOnAction(e -> handleSearch());
+
+        deleteButton = new Button("Delete Selected Appointment");
+        deleteButton.setStyle("-fx-padding: 10; -fx-background-color: red; -fx-text-fill: white;");
+        deleteButton.setOnAction(e -> handleDelete());
 
         homepageButton = new Button("Back to Homepage");
         homepageButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
@@ -51,16 +61,84 @@ public class SearchOfficeHoursPage {
             switchToHomepage(event);
         });
 
-        HBox forButtons = new HBox(20, searchButton, homepageButton);
+        table = new TableView<>();
+        searchResults = FXCollections.observableArrayList();
+        setupTable();
+
+        HBox forButtons = new HBox(20, searchButton, deleteButton, homepageButton);
         forButtons.setAlignment(Pos.CENTER);
 
-        VBox layout = new VBox(10, titleBox, searchVBox, forButtons);
+        VBox layout = new VBox(10, titleBox, searchVBox, forButtons, table);
         layout.setAlignment(Pos.CENTER);
         layout.setStyle("-fx-padding: 20 20 250 20; -fx-background-color: rgba(66, 223, 244, 0.40);");
-        layout.setMaxWidth(500);
+        layout.setMaxWidth(800);
         layout.setPrefWidth(100);
 
-        return new Scene(layout, 900, 600, Color.LIGHTBLUE);
+        return new Scene(layout, 1000, 600, Color.LIGHTBLUE);
+    }
+
+    private void setupTable() {
+        TableColumn<AppointmentsTableView.Appointment, String> colStudentName = new TableColumn<>("Student Name");
+        colStudentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+
+        TableColumn<AppointmentsTableView.Appointment, String> colScheduleDate = new TableColumn<>("Schedule Date");
+        colScheduleDate.setCellValueFactory(new PropertyValueFactory<>("scheduleDate"));
+
+        TableColumn<AppointmentsTableView.Appointment, String> colTimeSlot = new TableColumn<>("Time Slot");
+        colTimeSlot.setCellValueFactory(new PropertyValueFactory<>("timeSlot"));
+
+        TableColumn<AppointmentsTableView.Appointment, String> colCourse = new TableColumn<>("Course");
+        colCourse.setCellValueFactory(new PropertyValueFactory<>("course"));
+
+        TableColumn<AppointmentsTableView.Appointment, String> colReason = new TableColumn<>("Reason");
+        colReason.setCellValueFactory(new PropertyValueFactory<>("reason"));
+
+        TableColumn<AppointmentsTableView.Appointment, String> colComment = new TableColumn<>("Comment");
+        colComment.setCellValueFactory(new PropertyValueFactory<>("comment"));
+
+        table.getColumns().addAll(colStudentName, colScheduleDate, colTimeSlot, colCourse, colReason, colComment);
+        table.setItems(searchResults);
+    }
+
+    private void handleSearch() {
+        String query = searchBox.getText().trim();
+        if (query.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Please enter a search term.");
+            return;
+        }
+
+        List<AppointmentsTableView.Appointment> results = DatabaseHelper.searchAppointmentsByStudentName(query);
+        searchResults.setAll(results);
+    }
+
+    private void handleDelete() {
+        AppointmentsTableView.Appointment selected = table.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert(Alert.AlertType.WARNING, "Please select an appointment to delete.");
+            return;
+        }
+
+        boolean deleted = DatabaseHelper.deleteAppointment(
+                selected.getStudentName(),
+                selected.getScheduleDate(),
+                selected.getTimeSlot(),
+                selected.getCourse()
+        );
+
+        if (deleted) {
+            showAlert(Alert.AlertType.INFORMATION, "Appointment deleted.");
+            searchResults.remove(selected);
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Failed to delete appointment.");
+        }
+    }
+
+    private void showAlert(Alert.AlertType type, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle((type == Alert.AlertType.ERROR) ? "Error" : "Notification");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void switchToHomepage(ActionEvent event) {
