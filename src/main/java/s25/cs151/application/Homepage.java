@@ -45,6 +45,7 @@ public class Homepage extends Application {
         Button viewCoursesButton = new Button("View Courses");
         Button addOfficeHoursScheduleButton = new Button("Add Office Hours Schedule"); // 👈 New Button
         Button viewAppointmentsButton = new Button("View Appointments"); // 👈 New Button
+        Button viewSearchOfficeHoursPage = new Button("Search Office Hours");
         System.out.println("Default JavaFX Font: " + javafx.scene.text.Font.getDefault()); //added this to check font we want to use (Istok Web)
 
         // dashboard function will talk about it later
@@ -61,7 +62,9 @@ public class Homepage extends Application {
         viewTimeSlotsButton.setOnAction(e -> switchToTimeSlotsTableView()); 
         viewCoursesButton.setOnAction(e -> switchToCoursesTableView());
         addOfficeHoursScheduleButton.setOnAction(e -> switchToOfficeHoursSchedulePage());
-        viewAppointmentsButton.setOnAction(e -> switchToAppointmentsTableView()); 
+        viewAppointmentsButton.setOnAction(e -> switchToAppointmentsTableView());
+        viewSearchOfficeHoursPage.setOnAction (e -> switchToSearchOfficeHoursPage());
+
 
         Text firsTtitle = new Text("Welcome to");
         firsTtitle.setFont(istokFont); // Apply Istok Web font
@@ -102,7 +105,16 @@ public class Homepage extends Application {
         centeredBox.setStyle("-fx-alignment: center;");
 
         // Buttons layout
-        VBox buttonBox = new VBox(10, addOfficeHoursButton, addTimeSlotsButton, addCourseButton, addAppointmentButton, viewSemesterButton, viewTimeSlotsButton, viewCoursesButton, addOfficeHoursScheduleButton, viewAppointmentsButton); // 👈 New buttons added here
+        VBox buttonBox = new VBox(10, addOfficeHoursButton,
+                addTimeSlotsButton,
+                addCourseButton,
+                addAppointmentButton,
+                viewSemesterButton,
+                viewTimeSlotsButton,
+                viewCoursesButton,
+                addOfficeHoursScheduleButton,
+                viewAppointmentsButton,
+                viewSearchOfficeHoursPage);
         buttonBox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Create a VBox to hold the main title and the box below it
@@ -159,6 +171,7 @@ public class Homepage extends Application {
         new CoursesTableView().start(new Stage());
     }
 
+
     private void switchToOfficeHoursSchedulePage() {
         OfficeHoursSchedulePage officeHoursSchedulePage = new OfficeHoursSchedulePage(stage);
         Scene officeHoursScheduleScene = officeHoursSchedulePage.getScene(stage);
@@ -167,6 +180,11 @@ public class Homepage extends Application {
 
     private void switchToAppointmentsTableView() {
         new AppointmentsTableView().start(new Stage());
+    }
+    private void switchToSearchOfficeHoursPage() {
+        SearchOfficeHoursPage searchOfficeHoursPage = new SearchOfficeHoursPage(stage);
+        Scene searchOfficeHoursScene = searchOfficeHoursPage.getScene(stage);
+        stage.setScene(searchOfficeHoursScene);
     }
 
     public static void main(String[] args) {
