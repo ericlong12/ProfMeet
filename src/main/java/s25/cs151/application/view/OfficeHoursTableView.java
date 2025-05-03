@@ -1,4 +1,4 @@
-package s25.cs151.application;
+package s25.cs151.application.view;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import s25.cs151.application.model.OfficeHours;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

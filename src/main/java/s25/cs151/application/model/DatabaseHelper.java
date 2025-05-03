@@ -1,6 +1,7 @@
-package s25.cs151.application;
+package s25.cs151.application.model;
 
-import java.io.File;
+import s25.cs151.application.view.AppointmentsTableView;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

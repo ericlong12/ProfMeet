@@ -6,28 +6,27 @@
 *
 */
 
-package s25.cs151.application;
+package s25.cs151.application.view;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
-import java.time.LocalTime;
+
 import java.util.ArrayList;
 import java.util.List;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
+import s25.cs151.application.controller.MainController;
+import s25.cs151.application.model.DatabaseHelper;
+import s25.cs151.application.model.OfficeHoursSession;
 
 
 public class OfficeHoursPage {
+    private final MainController controller;
     private Label title, semesterLabel, yearLabel,
             daysLabel, courses;
     private CheckBox mon, tues, wed, thurs, fri;
@@ -36,10 +35,13 @@ public class OfficeHoursPage {
 
     private TextField yearField;
     private Stage stage; // Store the Stage
-    private ComboBox<String> semesterDropdown; 
-//    public OfficeHoursPage(Stage stage) {
-//         this.stage = stage;
-//    }
+    private ComboBox<String> semesterDropdown;
+
+
+    public OfficeHoursPage(Stage stage) {
+        this.stage = stage;
+        this.controller = new MainController(stage);
+    }
 
     public Scene getScene(Stage stage) {
         this.stage= stage;
@@ -109,7 +111,7 @@ public class OfficeHoursPage {
         backButton = new Button("Back to Home Page");
         backButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
         // sets action for back button
-        backButton.setOnAction(event -> switchToHomepage());
+        backButton.setOnAction(event -> controller.switchToHomepage());
 
         HBox buttonContainer = new HBox(20, submit, backButton);
         buttonContainer.setMinSize(500, 100); // Fixed size, so that it doesn't follow the page expanding
@@ -179,23 +181,11 @@ public class OfficeHoursPage {
             // Save the officeHourId in a session class for later use
             OfficeHoursSession.id = officeHourId;
             // Switch to the next page, e.g., TimeSlotsPage
-            switchToTimeSlotsPage();
+            controller.switchToTimeSlotsPage();
         } else {
             showAlert(Alert.AlertType.ERROR, "Failed to save office hours!");
         }
     }
 
-
-    private void switchToTimeSlotsPage() {
-        //Open TimeSlots Page in the same window
-        TimeSlotsPage timeSlotsPage = new TimeSlotsPage(stage);
-        Scene timeSlotsScene = timeSlotsPage.getScene(stage);
-        stage.setScene(timeSlotsScene);
-    }
-
-    private void switchToHomepage() {
-        Homepage homepage = new Homepage(stage);
-        homepage.start(stage);
-    }
 
 }

@@ -14,7 +14,7 @@
  *
  */
 
- package s25.cs151.application;
+ package s25.cs151.application.view;
 
 
  import javafx.event.ActionEvent;
@@ -28,10 +28,14 @@
  import javafx.stage.Stage;
  import java.util.ArrayList;
  import java.util.List;
- 
- import javafx.scene.Node;
- 
- public class CoursesPage {
+
+ import s25.cs151.application.model.DatabaseHelper;
+ import s25.cs151.application.model.OfficeHoursSession;
+ import s25.cs151.application.controller.MainController;
+
+
+public class CoursesPage {
+    private final MainController controller;
      private Stage stage; // Store the stage
      private Label courses, title;
      private TextField courseCode, courseName, courseSection;
@@ -40,6 +44,7 @@
  
      public CoursesPage(Stage stage) { // Constructor to receive the stage
          this.stage = stage;
+         this.controller = new MainController(stage);
      }
  
      public Scene getScene(Stage stage){
@@ -85,7 +90,7 @@
          backButton.setAlignment(Pos.CENTER);
  
          backButton.setOnAction(event -> {
-             switchToHomepage(event); // Pass the ActionEvent
+             controller.switchToHomepage(); // Pass the ActionEvent
          });
  
  
@@ -144,7 +149,6 @@
          }
      }
 
-
      private void showAlert(Alert.AlertType type, String message) {
          String title = (type == Alert.AlertType.ERROR) ? "Error" : "Notification";
  
@@ -154,20 +158,6 @@
          alert.setContentText(message);
          alert.showAndWait();
      }
- 
-     private void switchToHomepage(ActionEvent event) {
-         Homepage homepage = new Homepage(stage);
-         try {
-             homepage.start(stage); // Use the stored stage
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-     }
- 
-     // Removed the no-arg switchToHomepage()
-     // private void switchToHomepage() {
-     //    Homepage homepage = new Homepage(stage);
-     //    homepage.start(stage);
-     //}
+
  
  }

@@ -1,4 +1,4 @@
-package s25.cs151.application;
+package s25.cs151.application.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,12 +14,16 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import s25.cs151.application.controller.MainController;
+import s25.cs151.application.model.DatabaseHelper;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class OfficeHoursSchedulePage {
+    private final MainController controller;
     private Stage stage; 
     private Label titleLabel;
     private TextField studentNameField;
@@ -33,6 +37,7 @@ public class OfficeHoursSchedulePage {
 
     public OfficeHoursSchedulePage(Stage stage) {
         this.stage = stage;
+        this.controller = new MainController(stage);
     }
 
     public Scene getScene(Stage stage) {
@@ -92,7 +97,7 @@ public class OfficeHoursSchedulePage {
 
         backButton = new Button("Back to Home Page");
         backButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
-        backButton.setOnAction(e -> switchToHomepage());
+        backButton.setOnAction(e -> controller.switchToHomepage());
 
         HBox buttonBox = new HBox(20, submitButton, backButton);
         buttonBox.setAlignment(Pos.CENTER);
@@ -189,8 +194,4 @@ public class OfficeHoursSchedulePage {
         alert.showAndWait();
     }
 
-    private void switchToHomepage() {
-        Homepage homepage = new Homepage(stage);
-        homepage.start(stage);
-    }
 }

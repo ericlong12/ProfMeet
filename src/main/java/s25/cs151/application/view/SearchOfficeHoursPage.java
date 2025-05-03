@@ -1,9 +1,8 @@
-package s25.cs151.application;
+package s25.cs151.application.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,10 +11,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import s25.cs151.application.model.DatabaseHelper;
+import s25.cs151.application.controller.MainController;
 
 import java.util.List;
 
 public class SearchOfficeHoursPage {
+    private final MainController controller;
     private Stage stage;
     private TextField searchBox;
     private Label title;
@@ -25,6 +27,7 @@ public class SearchOfficeHoursPage {
 
     public SearchOfficeHoursPage(Stage stage) {
         this.stage = stage;
+        this.controller = new MainController(stage);
     }
 
     //two buttons needed "Search" & "Back to Homepage"
@@ -58,7 +61,7 @@ public class SearchOfficeHoursPage {
         homepageButton = new Button("Back to Homepage");
         homepageButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
         homepageButton.setOnAction(event -> {
-            switchToHomepage(event);
+            controller.switchToHomepage();
         });
 
         table = new TableView<>();
@@ -152,10 +155,5 @@ public class SearchOfficeHoursPage {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    private void switchToHomepage(ActionEvent event) {
-        Homepage homepage = new Homepage(stage);
-        homepage.start(stage);
     }
 }

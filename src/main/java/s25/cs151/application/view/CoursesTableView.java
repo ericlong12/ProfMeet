@@ -4,9 +4,8 @@
 * */
 
 
-package s25.cs151.application;
+package s25.cs151.application.view;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -15,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import s25.cs151.application.model.Courses;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

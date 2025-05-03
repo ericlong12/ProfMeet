@@ -7,7 +7,7 @@
 *
 * */
 
-package s25.cs151.application;
+package s25.cs151.application.model;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;

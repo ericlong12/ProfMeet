@@ -6,9 +6,8 @@
  *
  */
 
- package s25.cs151.application;
+ package s25.cs151.application.view;
 
- import javafx.geometry.Insets;
  import javafx.geometry.Pos;
  import javafx.scene.Scene;
  import javafx.scene.control.*;
@@ -16,6 +15,11 @@
  import javafx.scene.paint.Color;
  import javafx.scene.text.Font;
  import javafx.stage.Stage;
+ import s25.cs151.application.model.DatabaseHelper;
+ import s25.cs151.application.model.OfficeHoursSession;
+ import s25.cs151.application.model.TimePicker;
+ import s25.cs151.application.controller.MainController;
+
  import java.util.ArrayList;
  import java.util.List;
  import java.time.format.DateTimeFormatter;
@@ -28,9 +32,12 @@
      private TimePicker fromHour, toHour;
      private Button addSlotButton, finishButton;
      private Button backButton;
- 
+     private final MainController controller;
+
+
      public TimeSlotsPage(Stage stage) {
          this.stage = stage;
+         this.controller = new MainController(stage);
      }
  
      public Scene getScene(Stage stage) {
@@ -65,8 +72,8 @@
          backButton.setStyle("-fx-padding: 10; -fx-background-color: black; -fx-text-fill: white;");
  
          addSlotButton.setOnAction(e -> addTimeSlot());
-         finishButton.setOnAction(e -> switchToCoursesPage());
-         backButton.setOnAction(e -> switchToHomepage());
+         finishButton.setOnAction(e -> controller.switchToCoursesPage());
+         backButton.setOnAction(e -> controller.switchToHomepage());
  
          HBox buttonBox = new HBox(20, addSlotButton, finishButton, backButton);
          buttonBox.setAlignment(Pos.CENTER);
@@ -113,7 +120,6 @@
              showAlert(Alert.AlertType.ERROR, "This time slot already exists!");
          }
      }
-
  
      private LocalTime parseTime(String timeStr) {
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
@@ -129,16 +135,6 @@
          alert.setContentText(message);
          alert.showAndWait();
      }
- 
-     private void switchToCoursesPage() {
-         CoursesPage coursesPage = new CoursesPage(stage);
-         Scene coursesScene = coursesPage.getScene(stage);
-         stage.setScene(coursesScene);
-     }
 
-     private void switchToHomepage() {
-         Homepage homepage = new Homepage(stage);
-         homepage.start(stage);
-     }
  }
  
