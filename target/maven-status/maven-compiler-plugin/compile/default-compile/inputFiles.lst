@@ -4,6 +4,7 @@ C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\applicatio
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\CoursesPage.java
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\CoursesTableView.java
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\DatabaseHelper.java
+C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\EditAppointmentPage.java
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\Homepage.java
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\Main.java
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\OfficeHours.java
@@ -11,7 +12,8 @@ C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\applicatio
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\OfficeHoursSchedulePage.java
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\OfficeHoursSession.java
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\OfficeHoursTableView.java
-C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\SearchOfficeHoursPage.java
+C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\Page.java
+C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\SearchAndEditOfficeHoursPage.java
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\TimePicker.java
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\TimeSlotsPage.java
 C:\Users\shell\Music\CS151 Project\dev-27-0.2\src\main\java\s25\cs151\application\TimeSlotsTableView.java

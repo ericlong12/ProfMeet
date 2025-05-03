@@ -30,7 +30,7 @@ public class Homepage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        this.stage= primaryStage;
+        this.stage = primaryStage;
         // Loading in the Istok Web font
         Font istokFont = Font.font("Istok Web", 16);
 
@@ -45,7 +45,11 @@ public class Homepage extends Application {
         Button viewCoursesButton = new Button("View Courses");
         Button addOfficeHoursScheduleButton = new Button("Add Office Hours Schedule"); // 👈 New Button
         Button viewAppointmentsButton = new Button("View Appointments"); // 👈 New Button
-        Button viewSearchOfficeHoursPage = new Button("Search Office Hours");
+        Button viewSearchOfficeHoursPage = new Button("Search and Edit Office Hours");
+
+        // 👇 This button is now redundant due to merge, so it is commented out.
+        // Button editOfficeHoursScheduleButton = new Button("Edit Office Hours Schedule"); // 👈 NEW
+
         System.out.println("Default JavaFX Font: " + javafx.scene.text.Font.getDefault()); //added this to check font we want to use (Istok Web)
 
         // dashboard function will talk about it later
@@ -63,8 +67,9 @@ public class Homepage extends Application {
         viewCoursesButton.setOnAction(e -> switchToCoursesTableView());
         addOfficeHoursScheduleButton.setOnAction(e -> switchToOfficeHoursSchedulePage());
         viewAppointmentsButton.setOnAction(e -> switchToAppointmentsTableView());
-        viewSearchOfficeHoursPage.setOnAction (e -> switchToSearchOfficeHoursPage());
+        viewSearchOfficeHoursPage.setOnAction(e -> switchToSearchAndEditOfficeHoursPage());
 
+        // editOfficeHoursScheduleButton.setOnAction(e -> switchToEditOfficeHoursSchedulePage()); // 👈 NEW
 
         Text firsTtitle = new Text("Welcome to");
         firsTtitle.setFont(istokFont); // Apply Istok Web font
@@ -114,7 +119,9 @@ public class Homepage extends Application {
                 viewCoursesButton,
                 addOfficeHoursScheduleButton,
                 viewAppointmentsButton,
-                viewSearchOfficeHoursPage);
+                viewSearchOfficeHoursPage
+                // editOfficeHoursScheduleButton // 👈 Commented out to remove duplicate functionality
+        );
         buttonBox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Create a VBox to hold the main title and the box below it
@@ -171,7 +178,6 @@ public class Homepage extends Application {
         new CoursesTableView().start(new Stage());
     }
 
-
     private void switchToOfficeHoursSchedulePage() {
         OfficeHoursSchedulePage officeHoursSchedulePage = new OfficeHoursSchedulePage(stage);
         Scene officeHoursScheduleScene = officeHoursSchedulePage.getScene(stage);
@@ -181,10 +187,16 @@ public class Homepage extends Application {
     private void switchToAppointmentsTableView() {
         new AppointmentsTableView().start(new Stage());
     }
-    private void switchToSearchOfficeHoursPage() {
-        SearchOfficeHoursPage searchOfficeHoursPage = new SearchOfficeHoursPage(stage);
-        Scene searchOfficeHoursScene = searchOfficeHoursPage.getScene(stage);
-        stage.setScene(searchOfficeHoursScene);
+
+    private void switchToSearchAndEditOfficeHoursPage() {
+        SearchAndEditOfficeHoursPage page = new SearchAndEditOfficeHoursPage(stage);
+        Scene scene = page.getScene(stage);
+        stage.setScene(scene);
+    }    
+
+    private void switchToEditOfficeHoursSchedulePage() {
+        Page editPage = new SearchAndEditOfficeHoursPage(stage);
+        stage.setScene(editPage.getScene(stage));
     }
 
     public static void main(String[] args) {

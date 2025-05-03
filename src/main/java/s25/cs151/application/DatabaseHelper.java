@@ -199,6 +199,37 @@ public class DatabaseHelper {
         }
     }
 
+    /* Update appointment based on identifying fields */
+    public static boolean updateAppointment(
+            String originalStudentName, String originalScheduleDate, String originalTimeSlot, String originalCourse,
+            String newStudentName, String newScheduleDate, String newTimeSlot, String newCourse,
+            String newReason, String newComment) {
+
+        String sql = "UPDATE appointments SET studentName = ?, scheduleDate = ?, timeSlot = ?, course = ?, reason = ?, comment = ? " +
+                     "WHERE studentName = ? AND scheduleDate = ? AND timeSlot = ? AND course = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, newStudentName);
+            pstmt.setString(2, newScheduleDate);
+            pstmt.setString(3, newTimeSlot);
+            pstmt.setString(4, newCourse);
+            pstmt.setString(5, newReason);
+            pstmt.setString(6, newComment);
+
+            pstmt.setString(7, originalStudentName);
+            pstmt.setString(8, originalScheduleDate);
+            pstmt.setString(9, originalTimeSlot);
+            pstmt.setString(10, originalCourse);
+
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private static Connection connect() throws SQLException {
         return DriverManager.getConnection(DB_URL);
     }
