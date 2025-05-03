@@ -1,10 +1,9 @@
 package s25.cs151.application;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import s25.cs151.application.model.DatabaseHelper;
+import s25.cs151.application.view.Homepage;
 
 public class Main extends Application {
 
@@ -15,7 +14,7 @@ public class Main extends Application {
     // Homepage is here
     @Override
     public void start(Stage primaryStage) throws Exception {
-        DatabaseHelper.initializeDatabase(); 
+        DatabaseHelper.initializeDatabase();
     
         Homepage homepage = new Homepage(primaryStage);
         homepage.start(primaryStage);
