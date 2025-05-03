@@ -1,8 +1,8 @@
 /*
- *       Written by Eric Long & Thao Nguyen
- *       Edited by Frances Belleza
- *
- */
+*       Written by Eric Long & Thao Nguyen
+*       Edited by Frances Belleza
+*
+*/
 
 package s25.cs151.application;
 
@@ -39,11 +39,12 @@ public class Homepage extends Application {
         Button addOfficeHoursButton = new Button("Add Office Hours");
         Button addTimeSlotsButton = new Button("Add Time Slots");
         Button addCourseButton = new Button("Add Course");
-        Button viewSemesterButton = new Button("View Semester Office Hours");
+        Button viewSemesterButton = new Button("View Semester Office Hours"); 
         Button viewTimeSlotsButton = new Button("View Time Slots"); // 👈 New Button
         Button viewCoursesButton = new Button("View Courses");
         Button addOfficeHoursScheduleButton = new Button("Add Office Hours Schedule"); // 👈 New Button
         Button viewAppointmentsButton = new Button("View Appointments"); // 👈 New Button
+        Button viewSearchOfficeHoursPage = new Button("Search Office Hours");
         System.out.println("Default JavaFX Font: " + javafx.scene.text.Font.getDefault()); //added this to check font we want to use (Istok Web)
 
         // dashboard function will talk about it later
@@ -55,11 +56,13 @@ public class Homepage extends Application {
         addOfficeHoursButton.setOnAction(e -> switchToOfficeHoursPage());
         addTimeSlotsButton.setOnAction(e -> switchToTimeSlotsPage());
         addCourseButton.setOnAction(e -> switchToCoursesPage());
-        viewSemesterButton.setOnAction(e -> switchToOfficeHoursTableView());
-        viewTimeSlotsButton.setOnAction(e -> switchToTimeSlotsTableView());
+        viewSemesterButton.setOnAction(e -> switchToOfficeHoursTableView()); 
+        viewTimeSlotsButton.setOnAction(e -> switchToTimeSlotsTableView()); 
         viewCoursesButton.setOnAction(e -> switchToCoursesTableView());
         addOfficeHoursScheduleButton.setOnAction(e -> switchToOfficeHoursSchedulePage());
         viewAppointmentsButton.setOnAction(e -> switchToAppointmentsTableView());
+        viewSearchOfficeHoursPage.setOnAction (e -> switchToSearchOfficeHoursPage());
+
 
         Text firsTtitle = new Text("Welcome to");
         firsTtitle.setFont(istokFont); // Apply Istok Web font
@@ -99,9 +102,20 @@ public class Homepage extends Application {
         StackPane centeredBox = new StackPane(infoBox);
         centeredBox.setStyle("-fx-alignment: center;");
 
+        // Buttons layout
+        VBox buttonBox = new VBox(10, addOfficeHoursButton,
+                addTimeSlotsButton,
+                addCourseButton,
+                viewSemesterButton,
+                viewTimeSlotsButton,
+                viewCoursesButton,
+                addOfficeHoursScheduleButton,
+                viewAppointmentsButton,
+                viewSearchOfficeHoursPage);
+        buttonBox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Create a VBox to hold the main title and the box below it
-        VBox vbox = new VBox(20, titleBox, centeredBox);
+        VBox vbox = new VBox(20, titleBox, centeredBox, buttonBox);
         vbox.setStyle("-fx-padding: 20; -fx-alignment: center; -fx-background-color: rgba(66, 223, 244, 0.40);");
 
         // Create a Scene with a bigger window size
@@ -112,7 +126,7 @@ public class Homepage extends Application {
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(900);  // picks the width
         primaryStage.setMinHeight(600); // picks the height
-
+        
         primaryStage.show();
     }
 
@@ -150,6 +164,7 @@ public class Homepage extends Application {
         new CoursesTableView().start(new Stage());
     }
 
+
     private void switchToOfficeHoursSchedulePage() {
         OfficeHoursSchedulePage officeHoursSchedulePage = new OfficeHoursSchedulePage(stage);
         Scene officeHoursScheduleScene = officeHoursSchedulePage.getScene(stage);
@@ -158,6 +173,11 @@ public class Homepage extends Application {
 
     private void switchToAppointmentsTableView() {
         new AppointmentsTableView().start(new Stage());
+    }
+    private void switchToSearchOfficeHoursPage() {
+        SearchOfficeHoursPage searchOfficeHoursPage = new SearchOfficeHoursPage(stage);
+        Scene searchOfficeHoursScene = searchOfficeHoursPage.getScene(stage);
+        stage.setScene(searchOfficeHoursScene);
     }
 
     public static void main(String[] args) {
