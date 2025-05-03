@@ -33,7 +33,7 @@ public class Homepage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        this.stage= primaryStage;
+        this.stage = primaryStage;
 
         // Loading in the Istok Web font
         Font istokFont = Font.font("Istok Web", 16);
@@ -44,11 +44,13 @@ public class Homepage extends Application {
         Button addTimeSlotsButton = new Button("Add Time Slots");
         Button addCourseButton = new Button("Add Course");
         Button viewSemesterButton = new Button("View Semester Office Hours");
-        Button viewTimeSlotsButton = new Button("View Time Slots"); // 👈 New Button
+        Button viewTimeSlotsButton = new Button("View Time Slots");
         Button viewCoursesButton = new Button("View Courses");
-        Button addOfficeHoursScheduleButton = new Button("Add Office Hours Schedule"); // 👈 New Button
-        Button viewAppointmentsButton = new Button("View Appointments"); // 👈 New Button
+        Button addOfficeHoursScheduleButton = new Button("Add Office Hours Schedule");
+        Button viewAppointmentsButton = new Button("View Appointments");
         Button viewSearchOfficeHoursPage = new Button("Search Office Hours");
+        Button editOfficeHoursScheduleButton = new Button("Edit Office Hours Schedule");
+
         System.out.println("Default JavaFX Font: " + javafx.scene.text.Font.getDefault()); //added this to check font we want to use (Istok Web)
 
         // dashboard function will talk about it later
@@ -66,7 +68,7 @@ public class Homepage extends Application {
         addOfficeHoursScheduleButton.setOnAction(e -> controller.switchToOfficeHoursSchedulePage());
         viewAppointmentsButton.setOnAction(e -> controller.switchToAppointmentsTableView());
         viewSearchOfficeHoursPage.setOnAction (e -> controller.switchToSearchOfficeHoursPage());
-
+        editOfficeHoursScheduleButton.setOnAction(e -> controller.switchToEditOfficeHoursSchedulePage()); // 👈 NEW
 
         Text firsTtitle = new Text("Welcome to");
         firsTtitle.setFont(istokFont); // Apply Istok Web font
@@ -115,7 +117,9 @@ public class Homepage extends Application {
                 viewCoursesButton,
                 addOfficeHoursScheduleButton,
                 viewAppointmentsButton,
-                viewSearchOfficeHoursPage);
+                viewSearchOfficeHoursPage,
+                editOfficeHoursScheduleButton
+        );
         buttonBox.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
         // Create a VBox to hold the main title and the box below it
@@ -133,7 +137,6 @@ public class Homepage extends Application {
         
         primaryStage.show();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

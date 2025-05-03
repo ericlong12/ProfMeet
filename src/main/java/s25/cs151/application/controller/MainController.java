@@ -5,7 +5,12 @@ package s25.cs151.application.controller;
 
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import s25.cs151.application.view.Homepage;
+import s25.cs151.application.view.Page;
+import s25.cs151.application.view.SearchAndEditOfficeHoursPage;
 import s25.cs151.application.view.*;
+import s25.cs151.application.view.EditAppointmentPage;
+
 
 /**
  * Central controller for navigating between application views.
@@ -98,4 +103,22 @@ public class MainController {
     public void switchToAppointmentsTableView() {
         new AppointmentsTableView().start(new Stage());
     }
+
+    private void switchToSearchAndEditOfficeHoursPage() {
+        Page page = new SearchAndEditOfficeHoursPage(stage);
+        Scene scene = page.getScene();
+        stage.setScene(scene);
+    }
+
+    /**
+     * Show the "Search & Edit Office Hours" page.
+     */
+    public void switchToEditOfficeHoursSchedulePage() {
+        // assuming SearchAndEditOfficeHoursPage implements Page
+        Page editPage = new SearchAndEditOfficeHoursPage(stage);
+        Scene scene = editPage.getScene();
+        stage.setScene(scene);
+    }
+
+
 }
