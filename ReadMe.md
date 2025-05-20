@@ -70,7 +70,7 @@ Time slots and appointments are sorted automatically in the display tables
 ### How to Use
 Launch the application to access the homepage.
 
-Use the homepage buttons to:
+### Use the homepage buttons to:
 
 Add Office Hours
 
@@ -90,14 +90,15 @@ View Appointments
 
 Search and Edit Office Hours
 
-To schedule an appointment:
+### To schedule an appointment:
 
 Advisors create available time slots
 
 Students select a slot to book an advising session
 
-To edit/delete:
+### To edit/delete:
 
 Use the "Search and Edit Office Hours" page to search by student name and modify existing entries
 
+![image](https://github.com/user-attachments/assets/891dade4-873b-4105-b296-bc99dbc57e72)
 
