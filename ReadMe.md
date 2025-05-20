@@ -58,16 +58,16 @@ public class SearchAndEditOfficeHoursPage implements Page {
         // implementation
     }
 }
+```
 
-
-Data Storage and Management
+### Data Storage and Management
 Data is stored using SQLite
 
 All records (office hours, time slots, appointments, courses) are persistent across sessions
 
 Time slots and appointments are sorted automatically in the display tables
 
-How to Use
+### How to Use
 Launch the application to access the homepage.
 
 Use the homepage buttons to:
